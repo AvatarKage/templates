@@ -5,7 +5,7 @@ dist
 logs
 data
 backups
-ssl
+ssl/*
 
 # Files
 !.vscode/settings.json
