@@ -1,3 +1,6 @@
+`gh repo clone AvatarKage/templates`
+`cd templates/<TEMPLATE-NAME>`
+
 ## web-backend
 `npm run init` to install dependencies and complete setup<br>
 `npm run sandbox` to test code in `/sandbox`<br><br>
