@@ -12,7 +12,7 @@
     "build": "npm run clean && npm run sync && tsc && npm run minify",
     "clean": "rimraf dist && rimraf logs",
     "minify": "npx esbuild \"dist/**/*.js\" --format=esm --minify --banner:js=\"/* Copyright (c) AvatarKage 2026; Released under the MIT license */\" --outdir=dist --allow-overwrite",
-    "init": "npm install && npm run get:kage-library && npm run rename:env && npm run clean:delete-me",
+    "init": "npm install && npm run get:kage-library && npm run rename:env && npm run rename:crt && npm run rename:key && npm run clean:delete-me",
     "rename:env": "shx mv config/.env.example config/.env",
     "rename:crt": "shx mv config/ssl/example.com.crt.example config/ssl/example.com.crt && shx mv config/ssl/dev.example.com.crt.example config/ssl/dev.example.com.crt",
     "rename:key": "shx mv config/ssl/example.com.key.example config/ssl/example.com.key && shx mv config/ssl/dev.example.com.key.example config/ssl/dev.example.com.key",
