@@ -1,5 +1,5 @@
 `gh repo clone AvatarKage/templates`<br>
-`cd templates/<TEMPLATE-NAME>`
+`cd templates/<TEMPLATE-NAME>`<br><br>
 
 ## web-backend
 `npm run init` to install dependencies and complete setup<br>
