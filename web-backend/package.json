@@ -17,7 +17,7 @@
     "rename:crt": "shx mv config/ssl/example.com.crt.example config/ssl/example.com.crt && shx mv config/ssl/dev.example.com.crt.example config/ssl/dev.example.com.crt",
     "rename:key": "shx mv config/ssl/example.com.key.example config/ssl/example.com.key && shx mv config/ssl/dev.example.com.key.example config/ssl/dev.example.com.key",
     "get:kage-library": "rimraf tmp-kage-library && git clone --depth=1 --filter=blob:none --sparse https://github.com/AvatarKage/kage-library tmp-kage-library && cd tmp-kage-library && git sparse-checkout set typescript && cd .. && cpx \"tmp-kage-library/typescript/**/*\" src/packages/kage-library && cpx tmp-kage-library/LICENSE src/packages/kage-library && rimraf tmp-kage-library",
-    "clean:delete-me": "rimraf \"**/DELETE_ME\""
+    "clean:delete-me": "rimraf --glob \"**/DELETE_ME\""
   },
   "dependencies": {
     "axios": "^1.15.0",
