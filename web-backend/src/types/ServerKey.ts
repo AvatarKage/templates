@@ -1,0 +1,1 @@
+export type ServerKey = "root" | "status" | "api" | "cdn";

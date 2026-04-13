@@ -1,0 +1,25 @@
+# Folders
+.vscode/*
+node_modules
+dist
+logs
+data
+backups
+ssl
+
+# Files
+!.vscode/settings.json
+package-lock.json
+server.ts
+tsconfig.json
+
+# Extensions
+*.env
+*.log
+*.db
+*.sqlite
+*.idea
+*.ini
+*.lnk
+*.crt
+*.key

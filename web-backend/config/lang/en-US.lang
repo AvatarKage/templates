@@ -1,0 +1,10 @@
+maintenance.reason = "We're performing updates!"
+maintenance.scheduled.reason = "We're performing scheduled maintenance!"
+announcement.message = ""
+metadata.tagline = ""
+metadata.description = ""
+metadata.keywords = []
+metadata.version.name = ""
+messages.emptyFields = "Please fill in all the required fields."
+messages.noAccess = "You do not have permission to access this content."
+messages.badGateway = "Bad gateway. Try refreshing!"

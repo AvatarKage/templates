@@ -1,0 +1,129 @@
+# Disables unsafe SSL and dev domains
+isProduction = false
+
+# Sends and saves debug/trace logs
+[debug]
+useNerdFonts = true # https://nerdfonts.com
+# env = false (DANGEROUS)
+config = false
+snowflake = false
+# Add more as needed
+
+# Displays the maintenance landing
+[maintenance]
+isEnabled = false
+endsAt = "2026-01-01T00:00:00.000Z" # ISO 8601
+# reason is editable in ./lang/*.lang
+
+[maintenance.scheduled]
+interval = "0 0 1 * *" # Cron
+duration = "30m"
+# reason is editable in ./lang/*.lang
+
+# Displays the announcement banner
+[announcement]
+isEnabled = false
+startsAt = "2026-01-01T00:00:00.000Z" # ISO 8601
+endsAt = "2026-01-01T00:00:00.000Z" # ISO 8601
+type = "" # info | warning | critical
+# message is editable in ./lang/*.lang
+
+# Dynamic metadata (servers, package.json, etc.)
+[metadata]
+id = "com.example.project"
+name = "Project"
+# tagline is editable in ./lang/*.lang
+# description is editable in ./lang/*.lang
+# keywords are editable in ./lang/*.lang
+accent = ""
+theme = "system" # dark | light | system
+language = "en-US"
+urls = [
+    "https://example.com"
+]
+
+[metadata.version]
+# name is editable in ./lang/*.lang
+semver = "0.0.1" # major.minor.patch
+stage = "prealpha" # prealpha | alpha | beta | rc | release
+build = "96045" # AUTO-GENERATED
+buildDate = "2026-04-13T10:31:36.045Z" # ISO 8601
+
+[metadata.assets]
+logo = "/logo.svg"
+icon = "/icon.svg"
+banner = "/banner.svg"
+# Add more as needed
+
+[metadata.legal]
+owner = "Example, LLC." # Include suffix for registered entity
+license = "(c) 2026 Example, LLC. All Rights Reserved." # https://choosealicense.com
+trademarks = [] # Include ™ or (TM) for trademarks, OR ® or (R) for registered trademarks
+
+[metadata.contact]
+support = "support@example.com"
+legal = "legal@example.com"
+# Add more as needed
+
+# Identification sent to servers crawled
+[crawler]
+name = "ProjectCrawler"
+version = "1.0"
+website = "https://example.com"
+contact = "admin@example.com"
+
+# Port numbers on localhost (default: 1052*)
+[ports]
+# proxy is fixed at 443
+status = 10520
+api = 10521
+cdn = 10522
+# Add more as needed
+
+# IP addresses assigned to each server
+[ips]
+main = "127.0.0.0"
+status = "127.0.0.0"
+api = "127.0.0.0"
+cdn = "127.0.0.0"
+# Add more as needed
+
+# Dev IP addresses assigned to each server
+[ips.dev]
+main = "127.0.0.0"
+status = "127.0.0.0"
+api = "127.0.0.0"
+cdn = "127.0.0.0"
+# Add more as needed
+
+# Domains assigned to each server
+[domains]
+main = "example.com"
+status = "status.example.com"
+api = "api.example.com"
+cdn = "cdn.example.com"
+# Add more as needed
+
+# Dev domains assigned to each server
+[domains.dev]
+main = "dev.example.com"
+status = "status.dev.example.com"
+api = "api.dev.example.com"
+cdn = "cdn.dev.example.com"
+# Add more as needed
+
+# Dynamic generation (snowflake, etc.)
+[generation]
+machine = 0 # (valid: 0–1023)
+epoch = "2026-01-01T00:00:00.000Z" # ISO 8601
+seed = ""
+translations = [
+    # Do not include metadata.language
+    "zh-CN", # Chinese
+    "es-MX", # Spanish
+    "hi-IN", # Hindi
+    "ar-SA", # Arabic
+    "ru-RU", # Russian
+    "id-ID", # Indonesian
+    "ja-JP" # Japanese
+]
