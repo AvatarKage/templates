@@ -1,4 +1,4 @@
-`gh repo clone AvatarKage/templates`
+`gh repo clone AvatarKage/templates`<br>
 `cd templates/<TEMPLATE-NAME>`
 
 ## web-backend
