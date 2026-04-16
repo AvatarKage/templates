@@ -15,9 +15,11 @@ import { getLang } from "./src/packages/kage-library/modules/config/getLang.js";
 import { shutdownServer } from "./src/packages/kage-library/helpers/shutdownServer.js";
 import cleanLogs from "./src/packages/kage-library/modules/logging/cleanLogs.js";
 
-// ————————————————————————————————————————————————————————————————
-// Setup server
-// ————————————————————————————————————————————————————————————————
+/* 
+————————————————————————————————————————————————————————————————
+Setup server
+———————————————————————————————————————————————————————————————— 
+*/
 
 const proxy = httpProxy.createProxyServer({
     ws: true,
@@ -118,9 +120,11 @@ local.on(
     }
 );
 
-// ————————————————————————————————————————————————————————————————
-// Start server
-// ————————————————————————————————————————————————————————————————
+/* 
+————————————————————————————————————————————————————————————————
+Start server
+———————————————————————————————————————————————————————————————— 
+*/
 
 local.listen(config.ports.proxy, () => {
     log.proxy.success(`Proxy online at https://localhost:${config.ports.proxy}`);
@@ -129,9 +133,11 @@ local.listen(config.ports.proxy, () => {
 process.once("SIGTERM", () => shutdownServer()); // Host
 process.once("SIGINT", () => shutdownServer()); // Ctrl+C
 
-// ————————————————————————————————————————————————————————————————
-// Clean up logs
-// ————————————————————————————————————————————————————————————————
+/* 
+————————————————————————————————————————————————————————————————
+Clean up logs
+———————————————————————————————————————————————————————————————— 
+*/
 
 // Runs everyday at midnight
 cron.schedule("0 0 * * *", () => {
