@@ -1,2 +1,14 @@
 # Folders
-kage-library
+/.vscode
+web-backend/src/classes/*
+web-backend/src/config/*
+web-backend/src/helpers/*
+web-backend/src/modules/*
+web-backend/src/types/*
+
+# Files
+!web-backend/src/classes/DELETE_ME
+!web-backend/src/config/DELETE_ME
+!web-backend/src/helpers/DELETE_ME
+!web-backend/src/modules/DELETE_ME
+!web-backend/src/types/DELETE_ME

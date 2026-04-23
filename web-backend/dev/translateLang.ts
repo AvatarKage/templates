@@ -2,8 +2,8 @@ import fs from "fs";
 import path from "path";
 import translate from "translate";
 
-import { parseLang } from "../src/packages/kage-library/modules/config/getLang.js";
-import { config } from "../src/packages/kage-library/modules/config/readConfig.js";
+import { parseLang } from "../src/config/getLang.js";
+import { config } from "../src/config/readConfig.js";
 
 translate.engine = "google";
 

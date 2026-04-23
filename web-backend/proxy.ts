@@ -9,9 +9,9 @@ import cron from "node-cron";
 import "./src/packages/kage-library/extensions/string.js"
 import "./src/packages/kage-library/extensions/object.js"
 
-import { config } from "./src/packages/kage-library/modules/config/readConfig.js";
+import { config } from "./src/config/readConfig.js";
 import { log } from "./src/packages/kage-library/modules/logging/log.js";
-import { getLang } from "./src/packages/kage-library/modules/config/getLang.js";
+import { getLang } from "./src/config/getLang.js";
 import { shutdownServer } from "./src/packages/kage-library/helpers/shutdownServer.js";
 import cleanLogs from "./src/packages/kage-library/modules/logging/cleanLogs.js";
 

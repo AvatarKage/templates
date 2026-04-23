@@ -2,7 +2,7 @@ import "../src/packages/kage-library/extensions/string.js"
 import "../src/packages/kage-library/extensions/object.js"
 
 import Snowflake from "../src/packages/kage-library/classes/snowflake.js";
-import { config } from "../src/packages/kage-library/modules/config/readConfig.js";
+import { config } from "../src/config/readConfig.js";
 import formatNumber from "../src/packages/kage-library/helpers/formatNumber.js";
 import URL from "../src/packages/kage-library/classes/url.js";
 import { toMs } from "../src/packages/kage-library/helpers/misc.js";
