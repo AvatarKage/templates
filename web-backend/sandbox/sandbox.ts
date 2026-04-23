@@ -1,17 +1,14 @@
-import "../src/packages/kage-library/extensions/string.js"
-import "../src/packages/kage-library/extensions/object.js"
-
-import Snowflake from "../src/packages/kage-library/classes/snowflake.js";
+import Snowflake from "../src/classes/snowflake.js";
 import { config } from "../src/config/readConfig.js";
-import formatNumber from "../src/packages/kage-library/helpers/formatNumber.js";
-import URL from "../src/packages/kage-library/classes/url.js";
-import { toMs } from "../src/packages/kage-library/helpers/misc.js";
-import Database from "../src/packages/kage-library/classes/database.js";
-import Identifier from "../src/packages/kage-library/classes/identifier.js";
-import { log } from "../src/packages/kage-library/modules/logging/log.js";
-import toArray from "../src/packages/kage-library/helpers/toArray.js";
-import Metadata from "../src/packages/kage-library/classes/metadata.js";
-import parseDuration from "../src/packages/kage-library/helpers/parseDuration.js";
+import formatNumber from "../src/helpers/formatNumber.js";
+import URL from "../src/classes/url.js";
+import { toMs } from "../src/helpers/misc.js";
+import Database from "../src/classes/database.js";
+import Identifier from "../src/classes/identifier.js";
+import { log } from "../src/modules/logging/log.js";
+import toArray from "../src/helpers/toArray.js";
+import WebClient from "../src/classes/webClient.js";
+import parseDuration from "../src/helpers/parseDuration.js";
 
 export const snowflake = new Snowflake(config.generation.epoch);
 
@@ -58,8 +55,8 @@ const shortlink = id.generate("SHORTLINK");
 log.id.success(shortlink);
 log.id.info(id.get(shortlink));
 
-const md = new Metadata(db.metadata);
-log.crawler.success(await md.get(url.href));
+const wc = new WebClient(db.metadata);
+log.crawler.success(await wc.getMetadata(url.href));
 
 // Better if in a cron
-log.crawler.success(md.clearCache(parseDuration("1d")));
+log.crawler.success(wc.clearCache(parseDuration("1d")));
