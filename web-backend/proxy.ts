@@ -1,19 +1,16 @@
 import https from "https";
 import httpProxy from "http-proxy";
-import path from "path";
-import fs from "fs-extra";
 import { IncomingMessage, ServerResponse } from "http";
 import { Socket } from "net";
 import cron from "node-cron";
 
-import "./src/packages/kage-library/extensions/string.js"
-import "./src/packages/kage-library/extensions/object.js"
-
 import { config } from "./src/config/readConfig.js";
-import { log } from "./src/packages/kage-library/modules/logging/log.js";
+import { log } from "./src/modules/logging/log.js";
 import { getLang } from "./src/config/getLang.js";
-import { shutdownServer } from "./src/packages/kage-library/helpers/shutdownServer.js";
-import cleanLogs from "./src/packages/kage-library/modules/logging/cleanLogs.js";
+import { shutdownServer } from "./src/helpers/shutdownServer.js";
+import cleanLogs from "./src/modules/logging/cleanLogs.js";
+import { startConfigWatcher } from "./src/config/configWatcher.js";
+import backupData from "./src/helpers/backupData.js";
 
 /* 
 ————————————————————————————————————————————————————————————————
@@ -33,34 +30,26 @@ for (const [key, domain] of Object.entries(config.domains)) {
     const port = config.ports[key as keyof typeof config.ports];
 
     if (!domain) {
-        log.proxy.warn(`Missing domain for "${key}" key in config.toml`);
+        log.proxy.warn(`Missing domain for "${key}" key in config.toml`).save();
         continue;
     }
 
     if (!port) {
-        log.proxy.warn(`Missing port for "${key}" key in config.toml`);
+        log.proxy.warn(`Missing port for "${key}" key in config.toml`).save();
         continue;
     }
 
     serverMap[domain.toLowerCase()] = `https://localhost:${port}`;
 }
 
-// Certificates
-const ssl = {
-    cert: fs.readFileSync(
-        path.join(config.folders.config, "ssl", `${config.domains.main}.crt`)
-    ),
-    key: fs.readFileSync(
-        path.join(config.folders.config, "ssl", `${config.domains.main}.key`)
-    )
-};
-
 // HTTPS server
 const local = https.createServer(
-    ssl,
+    config.ssl,
     (req: IncomingMessage, res: ServerResponse) => {
-        if (req.url === "/favicon.ico") {
-            res.writeHead(204);
+        if (req.url!.startsWith("/favicon.ico")) {
+            res.writeHead(302, {
+                Location: `${config.urls.cdn}/assets${config.metadata.assets.icon}`
+            });
             return res.end();
         }
 
@@ -69,7 +58,7 @@ const local = https.createServer(
         let lang = getLang();
 
         if (!target) {
-            log.proxy.warn(`Host '${hostname}' is not mapped to a server`);
+            log.proxy.warn(`Host '${hostname}' is not mapped to a server`).save();
             
             res.setHeader("Content-Type", "text/plain; charset=utf-8");
             res.writeHead(502);
@@ -89,7 +78,7 @@ const local = https.createServer(
                 }
             },
             (error: Error) => {
-                log.proxy.error(`Error for '${hostname}' ${error.message}`);
+                log.proxy.error(`Error for '${hostname}':`, error).save();
                 res.writeHead(502);
                 res.end(lang.messages.badGateway);
             }
@@ -127,7 +116,7 @@ Start server
 */
 
 local.listen(config.ports.proxy, () => {
-    log.proxy.success(`Proxy online at https://localhost:${config.ports.proxy}`);
+    log.proxy.info(`Proxy online at https://localhost:${config.ports.proxy}`);
 });
 
 process.once("SIGTERM", () => shutdownServer()); // Host
@@ -135,12 +124,16 @@ process.once("SIGINT", () => shutdownServer()); // Ctrl+C
 
 /* 
 ————————————————————————————————————————————————————————————————
-Clean up logs
+Scheduled events
 ———————————————————————————————————————————————————————————————— 
 */
 
-// Runs everyday at midnight
+// Clean up logs everyday at midnight
 cron.schedule("0 0 * * *", () => {
-    log.cron.info("Running daily log cleanup...");
+    log.cron.info("Running daily tasks...");
     cleanLogs();
+    backupData();
 });
+
+// Checks timed-controlled config events every minute
+startConfigWatcher();

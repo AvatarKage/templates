@@ -12,7 +12,7 @@ snowflake = false
 # Displays the maintenance landing
 [maintenance]
 isEnabled = false
-endsAt = "2026-01-01T00:00:00.000Z" # ISO 8601
+endsAt = "2026-01-01T00:00:00.000Z"
 # reason is editable in ./lang/*.lang
 
 [maintenance.scheduled]
@@ -23,8 +23,8 @@ duration = "30m"
 # Displays the announcement banner
 [announcement]
 isEnabled = false
-startsAt = "2026-01-01T00:00:00.000Z" # ISO 8601
-endsAt = "2026-01-01T00:00:00.000Z" # ISO 8601
+startsAt = "2026-01-01T00:00:00.000Z"
+endsAt = "2026-01-01T00:00:00.000Z"
 type = "" # info | warning | critical
 # message is editable in ./lang/*.lang
 
@@ -39,15 +39,15 @@ accent = ""
 theme = "system" # dark | light | system
 language = "en-US"
 urls = [
-    "https://example.com"
+    "https://avatarka.ge"
 ]
 
 [metadata.version]
 # name is editable in ./lang/*.lang
 semver = "0.0.1" # major.minor.patch
 stage = "prealpha" # prealpha | alpha | beta | rc | release
-build = "96045" # AUTO-GENERATED
-buildDate = "2026-04-13T10:31:36.045Z" # ISO 8601
+build = "a767f09" # AUTO-GENERATED
+buildDate = "2026-04-24T22:42:51.270Z"
 
 [metadata.assets]
 logo = "/logo.svg"
@@ -57,24 +57,34 @@ banner = "/banner.svg"
 
 [metadata.legal]
 owner = "Example, LLC." # Include suffix for registered entity
-license = "(c) 2026 Example, LLC. All Rights Reserved." # https://choosealicense.com
+license = "Copyright (c) 2026 Example, LLC. All Rights Reserved." # https://choosealicense.com
 trademarks = [] # Include ™ or (TM) for trademarks, OR ® or (R) for registered trademarks
 
 [metadata.contact]
-support = "support@example.com"
-legal = "legal@example.com"
+support = "support@avatarka.ge"
+legal = "legal@avatarka.ge"
 # Add more as needed
 
 # Identification sent to servers crawled
 [crawler]
-name = "ProjectCrawler"
+name = "Example"
 version = "1.0"
-website = "https://example.com"
-contact = "admin@example.com"
+website = "https://avatarka.ge"
+contact = "admin@avatarka.ge"
+
+# The maximum memory before the server restarts (###M/G)
+[memory]
+proxy = "100M"
+main = "150M"
+status = "100M"
+api = "500M"
+cdn = "150M"
+# Add more as needed
 
 # Port numbers on localhost (default: 1052*)
 [ports]
 # proxy is fixed at 443
+main = 10523
 status = 10520
 api = 10521
 cdn = 10522
@@ -98,24 +108,24 @@ cdn = "127.0.0.0"
 
 # Domains assigned to each server
 [domains]
-main = "example.com"
-status = "status.example.com"
-api = "api.example.com"
-cdn = "cdn.example.com"
+main = "avatarka.ge"
+status = "status.avatarka.ge"
+api = "api.avatarka.ge"
+cdn = "cdn.avatarka.ge"
 # Add more as needed
 
 # Dev domains assigned to each server
 [domains.dev]
-main = "dev.example.com"
-status = "status.dev.example.com"
-api = "api.dev.example.com"
-cdn = "cdn.dev.example.com"
+main = "dev.avatarka.ge"
+status = "status.dev.avatarka.ge"
+api = "api.dev.avatarka.ge"
+cdn = "cdn.dev.avatarka.ge"
 # Add more as needed
 
 # Dynamic generation (snowflake, etc.)
 [generation]
 machine = 0 # (valid: 0–1023)
-epoch = "2026-01-01T00:00:00.000Z" # ISO 8601
+epoch = "2026-01-01T00:00:00.000Z"
 seed = ""
 translations = [
     # Do not include metadata.language

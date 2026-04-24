@@ -35,11 +35,10 @@ function extract(obj: any, path: Path = [], out: any[] = []) {
 
         if (typeof v === "string") {
             const t = v.trim();
-
             if (!t || t === "[]") continue;
 
             out.push({ path: [...path, k], value: t });
-        } else if (typeof v === "object" && v !== null && !Array.isArray(v)) {
+        } else if (typeof v === "object" && v !== null) {
             extract(v, [...path, k], out);
         }
     }
@@ -96,6 +95,27 @@ function flatten(obj: any, prefix = "", out: string[] = []) {
     return out;
 }
 
+/**
+ * Parses existing .lang file into a Map<flatKey, value>
+ */
+function parseLangFile(content: string) {
+    const map = new Map<string, string>();
+
+    for (const line of content.split("\n")) {
+        const idx = line.indexOf("=");
+        if (idx === -1) continue;
+
+        const key = line.slice(0, idx).trim();
+        let value = line.slice(idx + 1).trim();
+
+        value = value.replace(/^"(.*)"$/, "$1");
+
+        map.set(key, value);
+    }
+
+    return map;
+}
+
 (async () => {
     const raw: any = parseLang(config.metadata.language);
 
@@ -104,12 +124,28 @@ function flatten(obj: any, prefix = "", out: string[] = []) {
     for (const lang of translations) {
         const cloned = clone(raw);
 
+        const filePath = path.join("config", "lang", `${lang}.lang`);
+
+        let existing = new Map<string, string>();
+
+        if (fs.existsSync(filePath)) {
+            const fileContent = fs.readFileSync(filePath, "utf-8");
+            existing = parseLangFile(fileContent);
+        }
+
         for (const item of baseStrings) {
+            const flatKey = item.path.join(".");
+
+            const existingValue = existing.get(flatKey);
+
+            if (existingValue && existingValue.trim() !== "") {
+                set(cloned, item.path, existingValue);
+                continue;
+            }
+
             const translated = await translateAll(item.value, lang);
             set(cloned, item.path, translated);
         }
-
-        const filePath = path.join("config", "lang", `${lang}.lang`);
 
         fs.mkdirSync(path.dirname(filePath), { recursive: true });
 

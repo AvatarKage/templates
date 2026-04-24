@@ -8,13 +8,13 @@ backups
 ssl/*
 
 # Files
+!.vscode/extensions.json
 !.vscode/settings.json
 package-lock.json
-server.ts
-tsconfig.json
 
 # Extensions
 *.env
+!*.env.example
 *.log
 *.db
 *.sqlite
@@ -23,3 +23,5 @@ tsconfig.json
 *.lnk
 *.crt
 *.key
+!*.crt.example
+!*.key.example

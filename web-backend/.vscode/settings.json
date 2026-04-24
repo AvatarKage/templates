@@ -2,12 +2,14 @@
   "material-icon-theme.folders.associations": {
     "cdn": "images",
     "status": "resolver",
+    "support": "docs",
   },
   "material-icon-theme.files.associations": {
     "config.toml": "settings",
-    "notes.md": "toc",
     "package-lock.json": "lock",
-    "changelog.diff": "changelog"
+    "*.ecosystem.config.cjs": "pm2-ecosystem",
+    "*.crt.example": "certificate",
+    "*.key.example": "key"
   },
   "material-icon-theme.folders.customClones": [
     {
@@ -20,12 +22,6 @@
   "editor.tokenColorCustomizations": {
     "textMateRules": [
       {
-        "scope": "log.date",
-        "settings": {
-          "foreground": "#767676",
-        }
-      },
-      {
         "scope": "log.error",
         "settings": {
           "fontStyle": ""
@@ -34,35 +30,25 @@
     ]
   },
   "logFileHighlighter.customPatterns": [
-      {
-        "pattern": "\\[INFO\\].*",
-        "highlightEntireLine": true,
-        "foreground": "#767676"
-      },
-      {
-        "pattern": "\\[SUCCESS\\].*",
-        "highlightEntireLine": true,
-        "foreground": "#13a10e"
-      },
-      {
-        "pattern": "\\[WARN\\].*",
-        "highlightEntireLine": true,
-        "foreground": "#c19c00"
-      },
-      {
-        "pattern": "\\[ERROR\\].*",
-        "highlightEntireLine": true,
-        "foreground": "#c50f1f"
-      },
-      {
-        "pattern": "\\[DEBUG\\].*",
-        "highlightEntireLine": true,
-        "foreground": "#881798"
-      },
-      {
-        "pattern": "\\[TRACE\\].*",
-        "highlightEntireLine": true,
-        "foreground": "#3a96dd"
+    {
+      "pattern": "\\[INFO\\].*",
+      "highlightEntireLine": true,
+      "foreground": "#13a10e"
+    },
+    {
+      "pattern": "\\[WARN\\].*",
+      "highlightEntireLine": true,
+      "foreground": "#c19c00"
+    },
+    {
+      "pattern": "\\[ERROR\\].*",
+      "highlightEntireLine": true,
+      "foreground": "#c50f1f"
+    },
+    {
+      "pattern": "\\[DEBUG\\].*",
+      "highlightEntireLine": true,
+      "foreground": "#3a96dd"
     }
   ]
 }
