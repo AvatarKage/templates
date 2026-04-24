@@ -52,7 +52,7 @@ const banner = `/* This file is part of ${name}. ${license} */`;
 pkg.name = name.toLowerCase();
 pkg.version = fullVersion;
 pkg.license = license;
-pkg.scripts.minify = `npx esbuild "dist/**/*.js" --format=esm --minify --banner:js='${banner}' --outdir=dist --allow-overwrite`;
+pkg.scripts.minify = `npx esbuild "dist/**/*.js" --format=esm --minify --banner:js="${banner}" --outdir=dist --allow-overwrite`;
 
 fs.writeFileSync(pkgPath, JSON.stringify(pkg, null, 2));
 
