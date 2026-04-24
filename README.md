@@ -11,5 +11,5 @@ To start the server, update "domains" in `/config/config.toml` and generate vali
 `npm run sandbox` to test code in `/sandbox`<br><br>
 `npm run backup` to backup project to `/dev/backups`<br>
 `npm run sync` to sync `/config/config.toml` to `package.json` and `*.ecosystem.config.cjs`, and translate `/config/lang`<br>
-`npm run build` to compile to `/dist`<br>
+`npm run build` to compile `/src` to `/dist`<br>
 `npm run clean` to delete `/dist` and `/logs`
