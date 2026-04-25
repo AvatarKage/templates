@@ -1,5 +1,7 @@
 `gh repo clone AvatarKage/templates`<br>
-`cd templates/<TEMPLATE-NAME>`<br><br>
+`cd templates/<TEMPLATE-NAME>`<br>
+
+It is recommended to install the provided suggested VSC extensions provided.<br><br>
 
 ## web-backend
 `npm run init` to install dependencies and complete setup<br>
