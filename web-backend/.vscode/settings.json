@@ -7,7 +7,7 @@
   "material-icon-theme.files.associations": {
     "config.toml": "settings",
     "package-lock.json": "lock",
-    "*.ecosystem.config.cjs": "pm2-ecosystem",
+    "*.ecosystem.config.cts": "pm2-ecosystem",
     "*.crt.example": "certificate",
     "*.key.example": "key"
   },

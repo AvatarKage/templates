@@ -4,8 +4,8 @@
   "license": "Copyright (c) 2026 Example, LLC. All Rights Reserved.",
   "type": "module",
   "scripts": {
-    "start": "npm run stop && pm2 start ecosystem.config.cjs && pm2 monit",
-    "dev": "pm2 start dev.ecosystem.config.cjs && pm2 monit",
+    "start": "npm run stop && pm2 start ecosystem.config.cts && pm2 monit",
+    "dev": "pm2 start dev.ecosystem.config.cts && pm2 monit",
     "stop": "pm2 stop all && pm2 kill",
     "sandbox": "tsx sandbox/sandbox.ts",
     "backup": "tsx dev/backup.ts",

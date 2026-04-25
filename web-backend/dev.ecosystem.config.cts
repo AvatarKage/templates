@@ -23,7 +23,6 @@ module.exports = {
       node_args: "--import tsx",
       autorestart: true,
       max_memory_restart: "100M",
-      watch: true,
       watch: [
         "./src/**/*"
       ],
@@ -39,7 +38,6 @@ module.exports = {
       node_args: "--import tsx",
       autorestart: true,
       max_memory_restart: "500M",
-      watch: true,
       watch: [
         "./src/**/*"
       ],
@@ -55,7 +53,6 @@ module.exports = {
       node_args: "--import tsx",
       autorestart: true,
       max_memory_restart: "150M",
-      watch: true,
       watch: [
         "./src/**/*"
       ],
@@ -71,7 +68,6 @@ module.exports = {
       node_args: "--import tsx",
       autorestart: true,
       max_memory_restart: "150M",
-      watch: true,
       watch: [
         "./src/**/*"
       ],
