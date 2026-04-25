@@ -38,8 +38,13 @@ Routes
 ———————————————————————————————————————————————————————————————— 
 */
 
-router.use("/assets", express.static(config.folders.assets));
-router.use("/uploads", express.static(path.join(config.folders.data, "uploads")));
+app.use("/assets", express.static(config.folders.assets, 
+    { immutable: true, maxAge: "30d" }
+));
+
+app.use("/uploads", express.static(path.join(config.folders.data, "uploads"),
+    { maxAge: "7d" }
+));
 
 /* 
 ————————————————————————————————————————————————————————————————

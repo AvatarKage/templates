@@ -6,10 +6,14 @@ module.exports = {
       interpreter: "node",
       node_args: "--import tsx",
       autorestart: true,
-      max_memory_restart: "100M",
+      max_memory_restart: "1G",
       watch: [
         "./proxy.ts",
-        "./src/**/*"
+        "./src/classes",
+        "./src/config",
+        "./src/helpers",
+        "./src/middlewares",
+        "./src/modules"
       ],
       env: {
         NODE_OPTIONS: "--no-warnings",
@@ -22,9 +26,14 @@ module.exports = {
       interpreter: "node",
       node_args: "--import tsx",
       autorestart: true,
-      max_memory_restart: "100M",
+      max_memory_restart: "1G",
       watch: [
-        "./src/**/*"
+        "./src/servers/status",
+        "./src/classes",
+        "./src/config",
+        "./src/helpers",
+        "./src/middlewares",
+        "./src/modules"
       ],
       env: {
         NODE_OPTIONS: "--no-warnings",
@@ -37,9 +46,14 @@ module.exports = {
       interpreter: "node",
       node_args: "--import tsx",
       autorestart: true,
-      max_memory_restart: "500M",
+      max_memory_restart: "1G",
       watch: [
-        "./src/**/*"
+        "./src/servers/api",
+        "./src/classes",
+        "./src/config",
+        "./src/helpers",
+        "./src/middlewares",
+        "./src/modules"
       ],
       env: {
         NODE_OPTIONS: "--no-warnings",
@@ -52,9 +66,14 @@ module.exports = {
       interpreter: "node",
       node_args: "--import tsx",
       autorestart: true,
-      max_memory_restart: "150M",
+      max_memory_restart: "1G",
       watch: [
-        "./src/**/*"
+        "./src/servers/cdn",
+        "./src/classes",
+        "./src/config",
+        "./src/helpers",
+        "./src/middlewares",
+        "./src/modules"
       ],
       env: {
         NODE_OPTIONS: "--no-warnings",
@@ -67,9 +86,15 @@ module.exports = {
       interpreter: "node",
       node_args: "--import tsx",
       autorestart: true,
-      max_memory_restart: "150M",
+      max_memory_restart: "1G",
+      watch: ["./src"],
       watch: [
-        "./src/**/*"
+        "./src/servers/main",
+        "./src/classes",
+        "./src/config",
+        "./src/helpers",
+        "./src/middlewares",
+        "./src/modules"
       ],
       env: {
         NODE_OPTIONS: "--no-warnings",
