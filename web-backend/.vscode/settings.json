@@ -2,7 +2,7 @@
   "material-icon-theme.folders.associations": {
     "cdn": "images",
     "status": "resolver",
-    "support": "docs",
+    "support": "docs"
   },
   "material-icon-theme.files.associations": {
     "config.toml": "settings",

@@ -1,4 +1,6 @@
 /.vscode
+web-frontend
+web-fullstacks
 
 # Folders handled by Kage Library
 web-backend/src/classes/*
