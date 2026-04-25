@@ -118,7 +118,6 @@ declare global {
             backups: string
             sql: string
             assets:string
-            uploads:string
             // Add more as needed
         };
 

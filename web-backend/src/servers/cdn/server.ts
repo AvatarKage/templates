@@ -1,3 +1,4 @@
+import path from 'path';
 import https from 'https';
 import express, { Router } from "express";
 import cookieParser from "cookie-parser";
@@ -38,7 +39,7 @@ Routes
 */
 
 router.use("/assets", express.static(config.folders.assets));
-router.use("/uploads", express.static(config.folders.uploads));
+router.use("/uploads", express.static(path.join(config.folders.data, "uploads")));
 
 /* 
 ————————————————————————————————————————————————————————————————

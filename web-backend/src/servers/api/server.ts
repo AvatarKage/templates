@@ -19,7 +19,7 @@ Connect databases
 */
 
 export const db = {
-    metadata: new Database("data/metadata.sqlite")
+    metadata: new Database("data/databases/metadata.sqlite")
 };
 
 db.metadata.transaction((query) => {

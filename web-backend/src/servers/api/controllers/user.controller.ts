@@ -1,6 +1,6 @@
 import type { Request, Response } from 'express';
 
-import getUserById from '../functions/getUserById.js';
+import getUserById from '../helpers/getUserById.js';
 
 export const getUsers = (req: Request, res: Response) => {
     res.json({ message: 'Get all users' });

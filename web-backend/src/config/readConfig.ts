@@ -137,8 +137,7 @@ export const config: Config = cleanJSON({
         data: resolve(dir, "data"),
         backups: resolve(dir, "backups"),
         sql: resolve(dir, "src", "servers", "api", "sql"),
-        assets: resolve(dir, "src", "servers", "cdn", "assets"),
-        uploads: resolve(dir, "src", "servers", "cdn", "uploads")
+        assets: resolve(dir, "src", "assets")
         // Add more as needed
     }
 });
