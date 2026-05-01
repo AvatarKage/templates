@@ -18,6 +18,8 @@ package-lock.json
 *.log
 *.db
 *.sqlite
+*.sqlite-shm
+*.sqlite-wal
 *.idea
 *.ini
 *.lnk
