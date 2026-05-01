@@ -15,10 +15,8 @@ const makeSteps = (): [string, string][] => [
     ["Copying files...", "cd tmp-kage-library"],
     ["Copying files...", "git sparse-checkout set typescript"],
     ["Copying files...", "cd .."],
-    ["Copying files...", "cpx \"tmp-kage-library/typescript/**/*\" src/ "],
-    ["Cleaning workspace...", "rimraf tmp-kage-library"],
-    ["Cleaning workspace...", "shx mv .env.example .env"],
-    ["Cleaning workspace...", "rimraf --glob \"**/DELETE_ME\""]
+    ["Copying files...", "cpx tmp-kage-library/typescript/**/* src"],
+    ["Cleaning workspace...", "rimraf tmp-kage-library"]
 ];
 
 const steps = makeSteps();

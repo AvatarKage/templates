@@ -31,8 +31,6 @@ try {
     hash = Math.random().toString(36).substring(2, 9);
 }
 
-console.log(`New version: v${fullVersion}`);
-
 /* 
 ————————————————————————————————————————————————————————————————
 app.config.js
