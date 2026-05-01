@@ -4,6 +4,9 @@
 It is recommended to install the provided suggested VSC extensions provided.<br><br>
 
 ## web-backend
+# README IS OUTDATED
+- When building, config.isProduction must be enabled for final results
+
 `npm run init` to install dependencies and complete setup<br>
 
 To start the server, update "domains" in `/config/config.toml` and generate valid SSL files in `/config/ssl`<br>

@@ -6,7 +6,7 @@ module.exports = {
       interpreter: "node",
       node_args: "--import tsx",
       autorestart: true,
-      max_memory_restart: "1G",
+      max_memory_restart: "100M",
       watch: [
         "./proxy.ts",
         "./src/classes",
@@ -26,7 +26,7 @@ module.exports = {
       interpreter: "node",
       node_args: "--import tsx",
       autorestart: true,
-      max_memory_restart: "1G",
+      max_memory_restart: "100M",
       watch: [
         "./src/servers/status",
         "./src/classes",
@@ -46,7 +46,7 @@ module.exports = {
       interpreter: "node",
       node_args: "--import tsx",
       autorestart: true,
-      max_memory_restart: "1G",
+      max_memory_restart: "500M",
       watch: [
         "./src/servers/api",
         "./src/classes",
@@ -66,7 +66,7 @@ module.exports = {
       interpreter: "node",
       node_args: "--import tsx",
       autorestart: true,
-      max_memory_restart: "1G",
+      max_memory_restart: "150M",
       watch: [
         "./src/servers/cdn",
         "./src/classes",
@@ -86,7 +86,7 @@ module.exports = {
       interpreter: "node",
       node_args: "--import tsx",
       autorestart: true,
-      max_memory_restart: "1G",
+      max_memory_restart: "150M",
       watch: ["./src"],
       watch: [
         "./src/servers/main",

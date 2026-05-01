@@ -1,6 +1,8 @@
 /.vscode
 web-frontend
-web-fullstacks
+minecraft-mod
+discord-app
+desktop-app
 
 # Folders handled by Kage Library
 web-backend/src/classes/*

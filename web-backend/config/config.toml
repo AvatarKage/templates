@@ -84,10 +84,10 @@ cdn = "150M"
 # Port numbers on localhost (default: 1052*)
 [ports]
 # proxy is fixed at 443
-main = 10523
-status = 10520
-api = 10521
-cdn = 10522
+main = 10524
+status = 10521
+api = 10522
+cdn = 10523
 # Add more as needed
 
 # IP addresses assigned to each server

@@ -54,8 +54,8 @@ const local = https.createServer(
         }
 
         const hostname = req.headers.host?.split(":")[0].toLowerCase();
-        let target = hostname ? serverMap[hostname] : undefined;
-        let lang = getLang();
+        const target = hostname ? serverMap[hostname] : undefined;
+        const lang = getLang();
 
         if (!target) {
             log.proxy.warn(`Host '${hostname}' is not mapped to a server`).save();
@@ -73,8 +73,7 @@ const local = https.createServer(
                 secure: config.isProduction,
                 changeOrigin: false,
                 headers: {
-                    // @ts-ignore
-                    host: hostname 
+                    host: hostname as string
                 }
             },
             (error: Error) => {
@@ -102,8 +101,7 @@ local.on(
             target,
             secure: config.isProduction,
             headers: {
-                // @ts-ignore
-                host: hostname
+                host: hostname as string
             }
         });
     }

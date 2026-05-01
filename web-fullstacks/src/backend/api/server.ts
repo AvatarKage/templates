@@ -1,0 +1,99 @@
+import https from 'https';
+import express, { Router } from "express";
+import cookieParser from "cookie-parser";
+import cron from "node-cron";
+
+import { config } from '../../../app.config.js';
+import { getEnv } from '../_common/helpers/getEnv.js';
+import Logger from "../../_common/classes/logger.js";
+import { shutdownServer } from "../_common/helpers/shutdownServer.js";
+import { corsMiddleware } from '../_common/middlewares/cors.middleware.js';
+import { maintenanceMiddleware } from '../_common/middlewares/maintenance.middleware.js';
+import WebClient from "../_common/classes/webclient.js";
+import Database from "../_common/classes/database.js";
+import Snowflake from "../_common/classes/snowflake.js";
+import backupService from '../_common/services/backup.service.js';
+import userRoutes from './routes/user.routes.js';
+
+/* 
+————————————————————————————————————————————————————————————————
+Connect databases
+———————————————————————————————————————————————————————————————— 
+*/
+
+export const db = {
+    metadata: new Database("data/databases/metadata.sqlite")
+};
+
+db.metadata.transaction((query) => {
+    if (!query("SELECT * FROM metadata LIMIT 1").success) { query(`${config.folders.sql}/metadata.sql`); };
+});
+
+/* 
+————————————————————————————————————————————————————————————————
+Create instances 
+———————————————————————————————————————————————————————————————— 
+*/
+
+const app = express();
+app.set('json spaces', 2);
+const router = Router();
+
+export const log = new Logger({
+    path: "/logs/api",
+    useNerdFonts: config.useNerdFonts,
+    saveAllToFile: config.debug.logger.api
+});
+
+export const snowflake = new Snowflake(config.generation.epoch);
+export const wc = new WebClient(config.crawler, db.metadata);
+
+/* 
+————————————————————————————————————————————————————————————————
+Middlewares
+———————————————————————————————————————————————————————————————— 
+*/
+
+app.use(express.json());
+app.use(cookieParser());
+app.use(corsMiddleware);
+app.use(maintenanceMiddleware);
+
+/* 
+————————————————————————————————————————————————————————————————
+Routes
+———————————————————————————————————————————————————————————————— 
+*/
+
+app.use('/', router);
+
+router.use('/users', userRoutes);
+
+/* 
+————————————————————————————————————————————————————————————————
+Start server
+———————————————————————————————————————————————————————————————— 
+*/
+
+const server = https.createServer(getEnv("SSL"), app);
+const port = config.ports.api
+
+server.listen(port, "0.0.0.0", () => {
+    log.server.info(`Server online at https://localhost:${port}`);
+});
+
+process.once("SIGTERM", () => shutdownServer(log, db));
+process.once("SIGINT", () => shutdownServer(log, db));
+
+/* 
+————————————————————————————————————————————————————————————————
+Scheduled events
+———————————————————————————————————————————————————————————————— 
+*/
+
+// Run everyday at midnight
+cron.schedule("0 0 * * *", () => {
+    log.cron.info("Running daily tasks...");
+    log.cleanLogs();
+    backupService(config.folders.data, config.folders.backups);
+});

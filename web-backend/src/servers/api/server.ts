@@ -66,7 +66,7 @@ Start server
 ———————————————————————————————————————————————————————————————— 
 */
 
-export const server = https.createServer(config.ssl, app);
+const server = https.createServer(config.ssl, app);
 
 const port = config.ports.api
 server.listen(port, "0.0.0.0", () => {

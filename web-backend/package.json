@@ -1,6 +1,6 @@
 {
   "name": "project",
-  "version": "0.0.1-prealpha-a767f09",
+  "version": "0.0.1-prealpha-811b96b",
   "license": "Copyright (c) 2026 Example, LLC. All Rights Reserved.",
   "type": "module",
   "scripts": {
@@ -12,7 +12,7 @@
     "sync": "tsx dev/syncConfig.ts && tsx dev/translateLang.ts",
     "build": "npm run clean && npm run sync && tsc && npm run minify && rimraf dist/dev && rimraf dist/sandbox && rimraf dist/src/types",
     "clean": "rimraf dist && rimraf logs",
-    "minify": "npx esbuild \"dist/**/*.js\" --format=esm --minify --banner:js='/* This file is part of Project. Copyright (c) 2026 Example, LLC. All Rights Reserved. */' --outdir=dist --allow-overwrite",
+    "minify": "npx esbuild \"dist/**/*.js\" --format=esm --minify --banner:js=\"/* This file is part of Project. Copyright (c) 2026 Example, LLC. All Rights Reserved. */\" --outdir=dist --allow-overwrite",
     "init": "npm install && npm run get:kage-library && npm run rename:env && npm run rename:crt && npm run rename:key && npm run clean:delete-me && npm run get:pm2",
     "rename:env": "shx mv config/.env.example config/.env",
     "rename:crt": "shx mv config/ssl/example.com.crt.example config/ssl/example.com.crt && shx mv config/ssl/dev.example.com.crt.example config/ssl/dev.example.com.crt",
