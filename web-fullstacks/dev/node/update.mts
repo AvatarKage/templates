@@ -2,30 +2,89 @@ import { execa } from "execa";
 import cliProgress from "cli-progress";
 import chalk from "chalk";
 import { Stopwatch } from "@sapphire/stopwatch";
+import path from "node:path";
+import fs from "node:fs";
 
 import { config } from "../../app.config.js";
 
 const sw = new Stopwatch();
 
-const makeSteps = (): [string, string][] => [
-    ["Downloading modules...", "npm install"],
-    ["Downloading modules...", "npm install -g pm2"],
-    ["Downloading modules...", "npm update"],
-    ["Downloading modules...", "git clone --depth=1 --filter=blob:none --sparse https://github.com/AvatarKage/kage-library tmp-kage-library "],
-    ["Copying files...", "cd tmp-kage-library"],
-    ["Copying files...", "git sparse-checkout set typescript"],
-    ["Copying files...", "cd .."],
-    ["Copying files...", "cpx tmp-kage-library/typescript/**/* src"],
-    ["Cleaning workspace...", "rimraf tmp-kage-library"]
-];
+const ROOT = process.cwd();
+const TMP_DIR = path.join(ROOT, "tmp-kage-library");
 
-const steps = makeSteps();
+if (!fs.existsSync(path.join(ROOT, "package.json"))) {
+    throw new Error("Blocked attempt to run outside project root");
+}
+
+const run = (cmd: string, args: string[] = [], options: any = {}) =>
+    execa(cmd, args, {
+        stdio: "pipe",
+        ...options,
+    });
+
+const steps = [
+    {
+        name: "Downloading dependencies...",
+        run: () => run("npm", ["install"]),
+    },
+    {
+        name: "Downloading dependencies...",
+        run: () => run("npm", ["install", "-g", "pm2"]),
+    },
+    {
+        name: "Downloading dependencies...",
+        run: () => run("npm", ["update"]),
+    },
+    {
+        name: "Downloading dependencies...",
+        run: async () => {
+            if (fs.existsSync(TMP_DIR)) {
+                await run("rimraf", [TMP_DIR]);
+            }
+
+            await run("git", [
+                "clone",
+                "--depth=1",
+                "--filter=blob:none",
+                "--sparse",
+                "https://github.com/AvatarKage/kage-library",
+                TMP_DIR,
+            ]);
+        },
+    },
+    {
+        name: "Copying files...",
+        run: () =>
+            run(
+                "git",
+                ["sparse-checkout", "set", "typescript"],
+                { cwd: TMP_DIR }
+            ),
+    },
+    {
+        name: "Copying files...",
+        run: () =>
+            run(
+                "cpx",
+                ["typescript/**/*", path.join(ROOT, "src")],
+                { cwd: TMP_DIR }
+            ),
+    },
+    {
+        name: "Cleaning workspace...",
+        run: async () => {
+            if (fs.existsSync(TMP_DIR)) {
+                await run("rimraf", [TMP_DIR]);
+            }
+        },
+    },
+];
 
 let isDone = false;
 
 const bar = new cliProgress.SingleBar({
     hideCursor: true,
-    format: (options, params, payload) => {
+    format: (_, params, payload) => {
         const total = params.total ?? steps.length;
         const current = params.value ?? 0;
 
@@ -35,42 +94,34 @@ const bar = new cliProgress.SingleBar({
 
         const color = isDone ? chalk.green : chalk.blueBright;
 
-        const filled = color("━".repeat(progress));
-        const empty = (isDone ? chalk.green : chalk.white)(
-            "━".repeat(width - progress)
-        );
-
-        const title = color(
-            config.useNerdFonts
-                ? (isDone ? "" : "")
-                : (isDone ? "[READY]" : "[UPDATING]")
-        );
-
-        const stepText = color(payload.step);
-        const percentText = color(`(${percent}%)`);
-
-        return `${title} ${filled}${empty} ${percentText} ${stepText}`;
+        return `${color(config.useNerdFonts ? (isDone ? "" : "") : (isDone ? "[READY]" : "[UPDATING]"))} ` +
+            `${color("━".repeat(progress))}${chalk.white("━".repeat(width - progress))} ` +
+            `${color(`(${percent}%)`)} ${color(payload.step)}`;
     },
 });
 
 sw.start();
 
-bar.start(steps.length, 0, { step: "Downloading modules..." });
+bar.start(steps.length, 0, { step: "Starting..." });
 
 for (let i = 0; i < steps.length; i++) {
-    const [name, cmd] = steps[i];
+    const step = steps[i];
 
-    bar.update(i, { step: name });
+    bar.update(i, { step: step.name });
 
     try {
-        await execa(cmd, {
-            shell: true,
-            stdio: "ignore",
-        });
-    } catch (error) {
+        await step.run();
+    } catch (error: any) {
         bar.stop();
-        console.error(`${config.useNerdFonts ? " " : ""}Failed at step: ${name}`);
-        throw error;
+
+        console.error(
+            `${config.useNerdFonts ? " " : ""}Failed at step: ${step.name}`
+        );
+
+        if (error.stdout) console.error("\nSTDOUT:\n" + error.stdout);
+        if (error.stderr) console.error("\nSTDERR:\n" + error.stderr);
+
+        process.exit(1);
     }
 }
 

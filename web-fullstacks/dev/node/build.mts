@@ -2,25 +2,23 @@ import { execa } from "execa";
 import cliProgress from "cli-progress";
 import chalk from "chalk";
 import { Stopwatch } from "@sapphire/stopwatch";
-
 import { config } from "../../app.config.js";
 
 const sw = new Stopwatch();
 
-const makeSteps = (): [string, string][] => [
-    ["Preparing workspace...", "npm run clean"],
-    ["Syncing config...", "npm run sync"],
-    ["Translating locales...", "npm run translate"],
-    ["Compiling Typescript...", "tsc"],
-    ["Building frontend...", "vite build"],
-    ["Minifying code...", "npm run minify"],
+type Step = {
+    name: string;
+    cmd: string;
+    args?: string[];
+};
 
-    ...[
-        "delete:dist:dev",
-        "delete:dist:sandbox",
-        "delete:dist:src:types",
-        "delete:dist:vite",
-    ].map(cmd => ["Cleaning workspace...", `npm run ${cmd}`] as [string, string]),
+const steps: Step[] = [
+    { name: "Preparing workspace...", cmd: "npm", args: ["run", "clean"] },
+    { name: "Syncing config...", cmd: "npm", args: ["run", "sync"] },
+    { name: "Translating locales...", cmd: "npm", args: ["run", "translate"] },
+    { name: "Compiling Typescript...", cmd: "tsc" },
+    { name: "Building frontend...", cmd: "vite", args: ["build"] },
+    { name: "Minifying code...", cmd: "npm", args: ["run", "minify"] },
 
     ...[
         "copy:ssl",
@@ -28,10 +26,23 @@ const makeSteps = (): [string, string][] => [
         "copy:package",
         "copy:env",
         "copy:ecosystem",
-    ].map(cmd => ["Copying files...", `npm run ${cmd}`] as [string, string]),
+    ].map(cmd => ({
+        name: "Copying files...",
+        cmd: "npm",
+        args: ["run", cmd],
+    })),
+    
+    ...[
+        "delete:dist:dev",
+        "delete:dist:sandbox",
+        "delete:dist:src:types",
+        "delete:dist:vite",
+    ].map(cmd => ({
+        name: "Cleaning workspace...",
+        cmd: "npm",
+        args: ["run", cmd],
+    }))
 ];
-
-const steps = makeSteps();
 
 let isDone = false;
 
@@ -54,8 +65,8 @@ const bar = new cliProgress.SingleBar({
 
         const title = color(
             config.useNerdFonts
-                ? (isDone ? "" : "")
-                : (isDone ? "[BUILT]" : "[BUILDING]")
+                ? isDone ? "" : ""
+                : isDone ? "[BUILT]" : "[BUILDING]"
         );
 
         const stepText = color(payload.step);
@@ -67,21 +78,22 @@ const bar = new cliProgress.SingleBar({
 
 sw.start();
 
-bar.start(steps.length, 0, { step: "Preparing workspace..." });
+bar.start(steps.length, 0, { step: "Starting..." });
 
 for (let i = 0; i < steps.length; i++) {
-    const [name, cmd] = steps[i];
+    const step = steps[i];
 
-    bar.update(i, { step: name });
+    bar.update(i, { step: step.name });
 
     try {
-        await execa(cmd, {
-            shell: true,
-            stdio: "ignore",
+        await execa(step.cmd, step.args ?? [], {
+            stdio: "pipe",
         });
     } catch (error) {
         bar.stop();
-        console.error(`${config.useNerdFonts ? " " : ""}Failed at step: ${name}`);
+        console.error(
+            `${config.useNerdFonts ? " " : ""}Failed at step: ${step.name}`
+        );
         throw error;
     }
 }
