@@ -1,18 +1,4 @@
+# Folders
 /.vscode
-web-frontend
 minecraft-mod
 discord-app
-desktop-app
-
-# Folders handled by Kage Library
-web-backend/src/classes/*
-web-backend/src/helpers/*
-web-backend/src/modules/*
-web-backend/src/types/*
-
-# Files not handled by Kage Library
-!DELETE_ME
-!config.d.ts
-!lang.d.ts
-!*.crt.example
-!*.key.example
