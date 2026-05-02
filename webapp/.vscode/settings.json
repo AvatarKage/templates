@@ -4,7 +4,8 @@
     "status": "resolver",
     "support": "docs",
     "branding": "images",
-    "react": "react-components",
+    "components": "react-components",
+    "pages": "react-components",
     "ws": "connection"
   },
   "material-icon-theme.files.associations": {
