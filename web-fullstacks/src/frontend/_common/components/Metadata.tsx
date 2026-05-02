@@ -1,8 +1,6 @@
 import { Helmet } from 'react-helmet-async';
 
-import { 
-    URL
-} from "kage-library";
+import { URL } from "kage-library/client";
 
 import { useLocation } from "react-router-dom";
 import { useTranslation } from "react-i18next";

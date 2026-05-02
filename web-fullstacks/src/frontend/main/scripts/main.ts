@@ -1,7 +1,4 @@
-import { 
-    Logger,
-    WsClient
-} from "kage-library";
+import { Logger, WsClient } from "kage-library/client";
 
 /* 
 ————————————————————————————————————————————————————————————————
