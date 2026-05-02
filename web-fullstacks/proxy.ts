@@ -6,12 +6,12 @@ import cron from "node-cron";
 
 import { 
     Logger,
-    shutdownServer,
     I18nService
 } from "kage-library";
 
 import { config } from "./app.config.js";
 import getEnv from "./src/backend/_common/helpers/getEnv.js";
+import shutdownServer from "./src/backend/_common/helpers/shutdownServer.js";
 
 const log = new Logger({
     path: "/logs", 

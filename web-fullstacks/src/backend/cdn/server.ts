@@ -6,11 +6,11 @@ import cron from "node-cron";
 
 import { 
     Logger,
-    shutdownServer
 } from "kage-library";
 
 import { config } from '../../../app.config.js';
 import getEnv from '../_common/helpers/getEnv.js';
+import shutdownServer from "../_common/helpers/shutdownServer.js";
 import { corsMiddleware } from '../_common/middlewares/cors.middleware.js';
 
 /* 

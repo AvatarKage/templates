@@ -8,11 +8,11 @@ import path from "path";
 
 import { 
     Logger,
-    shutdownServer
 } from "kage-library";
 
 import { config } from "../../../app.config.js";
 import getEnv from "../_common/helpers/getEnv.js";
+import shutdownServer from "../_common/helpers/shutdownServer.js";
 import createViteServer from "../_common/helpers/createViteServer.js";
 import { corsMiddleware } from "../_common/middlewares/cors.middleware.js";
 import { maintenanceMiddleware } from "../_common/middlewares/maintenance.middleware.js";
