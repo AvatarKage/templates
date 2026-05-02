@@ -1,5 +1,7 @@
-import Logger from "../../../_common/classes/logger.js";
-import WsClient from "../../_common/classes/wsClient.js";
+import { 
+    Logger,
+    WsClient
+} from "kage-library";
 
 /* 
 ————————————————————————————————————————————————————————————————

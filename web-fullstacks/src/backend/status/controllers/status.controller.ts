@@ -1,10 +1,16 @@
 import type { Request, Response } from 'express';
 
-import WebClient from '../../_common/classes/webclient.js';
+import { 
+    WebClient
+} from "kage-library";
+
 import { config } from '../../../../app.config.js';
 
 export const statusController = async (req: Request, res: Response) => {
-    const wc = new WebClient(config.crawler);
+    const wc = new WebClient({
+        crawler: config.crawler,
+        useSecureSSL: config.isProduction
+    });
 
     // Do not ping the status server
     const api = await wc.ping(`https://${config.domains.api}`);

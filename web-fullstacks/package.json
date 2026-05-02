@@ -1,7 +1,13 @@
 {
   "name": "my-app",
-  "version": "0.0.1-prealpha-811b96b",
-  "license": "Copyright (c) 2026 Example, LLC. All Rights Reserved.",
+  "version": "0.0.1-prealpha-479c420",
+  "description": "This is an example description",
+  "keywords": [
+    "example",
+    "keyword"
+  ],
+  "author": "Example, LLC.",
+  "license": "ARR",
   "type": "module",
   "scripts": {
     "start": "pm2 start ecosystem.config.cjs && pm2 monit",
@@ -9,22 +15,20 @@
     "stop": "pm2 stop all && pm2 kill",
     "sandbox": "tsx sandbox/%npm_config_name%.test.ts",
     "backup": "tsx dev/backup.ts",
-    "update": "tsx dev/node/update.mts",
-    "build": "tsx dev/node/build.mts",
+    "update": "npm update",
+    "build": "tsx dev/node/buildApp.mts",
     "clean": "rimraf dist && rimraf logs",
     "sync": "tsx dev/syncConfig.ts",
     "translate": "tsx dev/translateLocales.ts",
     "minify": "npx esbuild \"dist/**/*.js\" --format=esm --minify --banner:js=\"/* This file is part of My App. Copyright (c) 2026 Example, LLC. All Rights Reserved. */\" --outdir=dist --allow-overwrite",
-    "delete:dist:dev": "rimraf dist/dev",
-    "delete:dist:sandbox": "rimraf dist/sandbox",
-    "delete:dist:src:types": "rimraf dist/src/types",
-    "delete:dist:vite": "rimraf dist/vite.config.js",
     "copy:ssl": "cpx ssl/**/* dist/ssl",
     "copy:public": "cpx public/**/* dist/public",
     "copy:package": "cpx package.json dist",
     "copy:env": "cpx .env dist",
     "copy:ecosystem": "cpx ecosystem.config.cjs dist",
-    "init": "npm install && shx mv .env.example .env && shx mv ssl/dev.crt.example ssl/dev.crt && shx mv ssl/dev.key.example ssl/dev.key && shx mv ssl/prod.crt.example ssl/prod.crt && shx mv ssl/prod.key.example ssl/prod.key && rimraf --glob \"**/DELETE_ME\" && npm run update"
+    "publish:npm": "cd packages/node && npm publish && cd ../../",
+    "build:npm": "cd packages/node && tsx ../../dev/node/buildNodePackage.mts && cd ../../",
+    "init": "npm install && install -g pm2 && shx mv .env.example .env && shx mv ssl/dev.crt.example ssl/dev.crt && shx mv ssl/dev.key.example ssl/dev.key && shx mv ssl/prod.crt.example ssl/prod.crt && shx mv ssl/prod.key.example ssl/prod.key && rimraf --glob \"**/DELETE_ME\" && npm run update"
   },
   "dependencies": {
     "@sapphire/stopwatch": "^1.5.4",
@@ -46,6 +50,7 @@
     "http-proxy": "^1.18.1",
     "i18next": "^26.0.8",
     "i18next-http-backend": "^3.0.6",
+    "kage-library": "^1.0.2",
     "luxon": "^3.7.2",
     "node-cron": "^4.2.1",
     "path": "^0.12.7",

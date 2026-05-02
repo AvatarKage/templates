@@ -26,8 +26,8 @@ const isProduction = false;
 // version name is editable in ./src/assets/locales/*.json
 const semver = "0.0.1"; // major.minor.patch
 const stage = "prealpha"; // prealpha | alpha | beta | rc | release
-const build = "811b96b"; // DO NOT TOUCH, AUTO-GENERATED
-const buildDate = "2026-05-01T17:19:45.310Z"; // DO NOT TOUCH, AUTO-GENERATED
+const build = "479c420"; // DO NOT TOUCH, AUTO-GENERATED
+const buildDate = "2026-05-02T17:26:56.244Z"; // DO NOT TOUCH, AUTO-GENERATED
 
 /* 
 ————————————————————————————————————————————————————————————————
@@ -103,7 +103,10 @@ export const config = {
 
         legal: {
             owner: "Example, LLC.", // Include suffix for registered entity
-            license: "Copyright (c) 2026 Example, LLC. All Rights Reserved.", // https://choosealicense.com
+            license: {
+                text: "Copyright (c) 2026 Example, LLC. All Rights Reserved.", // https://choosealicense.com
+                code: "ARR", // https://choosealicense.com
+            },
             trademarks: [] // Include ™ or (TM) for trademarks, OR ® or (R) for registered trademarks
         },
 

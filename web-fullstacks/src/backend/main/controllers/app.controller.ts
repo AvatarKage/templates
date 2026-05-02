@@ -2,9 +2,12 @@ import type { Request, Response } from "express"
 import path from "path"
 import fs from "fs"
 
+import { 
+    getReqUrl
+} from "kage-library";
+
 import { config } from "../../../../app.config.js"
 import { vite } from "../server.js"
-import getReqUrl from "../../_common/helpers/getReqUrl.js"
 import { log } from "../server.js"
 
 export const renderApp = async (req: Request, res: Response) => {

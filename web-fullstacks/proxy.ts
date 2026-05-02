@@ -4,11 +4,14 @@ import { IncomingMessage, ServerResponse } from "http";
 import { Socket } from "net";
 import cron from "node-cron";
 
+import { 
+    Logger,
+    shutdownServer,
+    I18nService
+} from "kage-library";
+
 import { config } from "./app.config.js";
-import { getEnv } from "./src/backend/_common/helpers/getEnv.js";
-import I18nService from "./src/backend/_common/services/i18n.service.js";
-import Logger from "./src/_common/classes/logger.js";
-import { shutdownServer } from "./src/backend/_common/helpers/shutdownServer.js";
+import getEnv from "./src/backend/_common/helpers/getEnv.js";
 
 const log = new Logger({
     path: "/logs", 

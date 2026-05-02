@@ -3,16 +3,19 @@ import express, { Router } from "express";
 import cookieParser from "cookie-parser";
 import cron from "node-cron";
 
+import { 
+    Database,
+    Logger,
+    Snowflake,
+    WebClient,
+    shutdownServer,
+    backupService
+} from "kage-library";
+
 import { config } from '../../../app.config.js';
-import { getEnv } from '../_common/helpers/getEnv.js';
-import Logger from "../../_common/classes/logger.js";
-import { shutdownServer } from "../_common/helpers/shutdownServer.js";
+import getEnv from '../_common/helpers/getEnv.js';
 import { corsMiddleware } from '../_common/middlewares/cors.middleware.js';
 import { maintenanceMiddleware } from '../_common/middlewares/maintenance.middleware.js';
-import WebClient from "../_common/classes/webclient.js";
-import Database from "../_common/classes/database.js";
-import Snowflake from "../_common/classes/snowflake.js";
-import backupService from '../_common/services/backup.service.js';
 import userRoutes from './routes/user.routes.js';
 
 /* 
@@ -46,7 +49,11 @@ export const log = new Logger({
 });
 
 export const snowflake = new Snowflake(config.generation.epoch);
-export const wc = new WebClient(config.crawler, db.metadata);
+export const wc = new WebClient({
+    crawler: config.crawler,
+    database: db.metadata,
+    
+});
 
 /* 
 ————————————————————————————————————————————————————————————————

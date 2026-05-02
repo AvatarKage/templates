@@ -2,7 +2,19 @@ import { execSync } from "child_process";
 import path from "path";
 import fs from "fs";
 
+import { 
+    I18nService
+} from "kage-library";
+
 import { config } from "../app.config.js";
+
+const i18n = await I18nService.load(
+    { 
+        localesPath: "/public/locales", 
+        locale: "en", 
+        defaultLocale: config.metadata.locale 
+    }
+);
 
 const primary = config.theme.primary;
 const accent = config.theme.accent;
@@ -11,8 +23,14 @@ const semver = config.metadata.version.semver;
 const stage = config.metadata.version.stage;
 const fullVersion = config.metadata.version.full;
 const icon = config.metadata.assets.icon;
-const license = config.metadata.legal.license;
+const owner = config.metadata.legal.owner;
+const licenseText = config.metadata.legal.license.text;
+const licenseCode = config.metadata.legal.license.code;
 const cdnDomain = config.domains.cdn;
+const keywords = (i18n.t("metadata.keywords") || "")
+  .split(",")
+  .map(k => k.trim())
+  .filter(Boolean);
 
 if (!primary) throw new Error("app.config.js is missing theme.primary");
 if (!accent) throw new Error("app.config.js is missing theme.accent");
@@ -21,7 +39,9 @@ if (!semver) throw new Error("app.config.js is missing metadata.version.semver")
 if (!stage) throw new Error("app.config.js is missing metadata.version.stage");
 if (!fullVersion) throw new Error("app.config.js is missing metadata.version.full");
 if (!icon) throw new Error("app.config.js is missing metadata.assets.icon");
-if (!license) throw new Error("app.config.js is missing metadata.legal.license");
+if (!owner) throw new Error("app.config.js is missing metadata.legal.owner");
+if (!licenseText) throw new Error("app.config.js is missing metadata.legal.license.text");
+if (!licenseCode) throw new Error("app.config.js is missing metadata.legal.license.code");
 if (!cdnDomain) throw new Error("app.config.js is missing domains.cdn");
 
 let hash;
@@ -60,7 +80,7 @@ package.json
 
 const packagePath = path.join(config.folders.root, "package.json");
 const packageJSON = JSON.parse(fs.readFileSync(packagePath, "utf8"));
-const headerText = `This file is part of ${name}. ${license}`;
+const headerText = `This file is part of ${name}. ${licenseText}`;
 
 packageJSON.name = name
     .toLowerCase()
@@ -68,10 +88,35 @@ packageJSON.name = name
     .replace(/[^a-z0-9-]/g, "");
     
 packageJSON.version = fullVersion;
-packageJSON.license = license;
+packageJSON.description = i18n.t("metadata.description");
+packageJSON.keywords = keywords;
+packageJSON.author = owner;
+packageJSON.license = licenseCode;
 packageJSON.scripts.minify = `npx esbuild "dist/**/*.js" --format=esm --minify --banner:js="/* ${headerText} */" --outdir=dist --allow-overwrite`;
 
 fs.writeFileSync(packagePath, JSON.stringify(packageJSON, null, 2), "utf8");
+
+/* 
+————————————————————————————————————————————————————————————————
+packages/node/package.json
+———————————————————————————————————————————————————————————————— 
+*/
+
+const nodePackagePath = path.join(config.folders.root, "packages", "node", "package.json");
+const nodePackageJSON = JSON.parse(fs.readFileSync(nodePackagePath, "utf8"));
+
+nodePackageJSON.name = name
+    .toLowerCase()
+    .replace(/\s+/g, "-")
+    .replace(/[^a-z0-9-]/g, "");
+    
+nodePackageJSON.version = fullVersion;
+nodePackageJSON.description = i18n.t("metadata.description");
+nodePackageJSON.keywords = keywords;
+nodePackageJSON.author = owner;
+nodePackageJSON.license = licenseCode;
+
+fs.writeFileSync(nodePackagePath, JSON.stringify(nodePackageJSON, null, 2), "utf8");
 
 /* 
 ————————————————————————————————————————————————————————————————

@@ -3,17 +3,15 @@
     "module": "nodenext",
     "target": "esnext",
     "strict": true,
-    "jsx": "react-jsx",
     "sourceMap": false,
     "declaration": true,
+    "declarationDir": "dist/types",
     "declarationMap": false,
-    "declarationDir": "dist/src/types",
     "isolatedModules": true,
     "skipLibCheck": true,
     "rootDir": ".",
-    "outDir": "dist",
+    "outDir": "/dist",
     "resolveJsonModule": true,
     "esModuleInterop": true
-  },
-  "include": ["src"]
+  }
 }

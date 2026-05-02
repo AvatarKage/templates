@@ -14,34 +14,8 @@ type Step = {
 
 const steps: Step[] = [
     { name: "Preparing workspace...", cmd: "npm", args: ["run", "clean"] },
-    { name: "Syncing config...", cmd: "npm", args: ["run", "sync"] },
-    { name: "Translating locales...", cmd: "npm", args: ["run", "translate"] },
     { name: "Compiling Typescript...", cmd: "tsc" },
-    { name: "Building frontend...", cmd: "vite", args: ["build"] },
-    { name: "Minifying code...", cmd: "npm", args: ["run", "minify"] },
-
-    ...[
-        "copy:ssl",
-        "copy:public",
-        "copy:package",
-        "copy:env",
-        "copy:ecosystem",
-    ].map(cmd => ({
-        name: "Copying files...",
-        cmd: "npm",
-        args: ["run", cmd],
-    })),
-    
-    ...[
-        "delete:dist:dev",
-        "delete:dist:sandbox",
-        "delete:dist:src:types",
-        "delete:dist:vite",
-    ].map(cmd => ({
-        name: "Cleaning workspace...",
-        cmd: "npm",
-        args: ["run", cmd],
-    }))
+    { name: "Minifying code...", cmd: "npm", args: ["run", "minify"] }
 ];
 
 let isDone = false;

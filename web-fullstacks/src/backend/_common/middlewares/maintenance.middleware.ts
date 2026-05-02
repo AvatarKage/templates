@@ -1,7 +1,7 @@
 import type { Request, Response, NextFunction } from 'express';
+import { I18nService } from "kage-library"
 
 import { config } from '../../../../app.config.js';
-import I18nService from '../services/i18n.service.js';
 
 export const maintenanceMiddleware = async (req: Request, res: Response, next: NextFunction) => {
     
