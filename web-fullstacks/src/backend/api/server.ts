@@ -40,7 +40,7 @@ Create instances
 
 const app = express();
 app.set('json spaces', 2);
-const router = Router();
+const v1 = Router();
 
 export const log = new Logger({
     path: "/logs/api",
@@ -72,9 +72,9 @@ Routes
 ———————————————————————————————————————————————————————————————— 
 */
 
-app.use('/', router);
+app.use('/v1', v1);
 
-router.use('/users', userRoutes);
+v1.use('/users', userRoutes);
 
 /* 
 ————————————————————————————————————————————————————————————————
