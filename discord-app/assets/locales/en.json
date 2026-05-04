@@ -1,0 +1,15 @@
+{
+  "metadata": {
+    "tagline": "Example App",
+    "description": "This is an example description",
+    "keywords": "example, keyword",
+    "version": {
+      "0.0.1": {
+        "name": "First build"
+      }
+    }
+  },
+  "responses": {
+    "failedCommand": "Error executing command! A report was filed and sent to the developer."
+  }
+}

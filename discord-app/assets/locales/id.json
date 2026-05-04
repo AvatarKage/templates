@@ -1,0 +1,15 @@
+{
+  "metadata": {
+    "tagline": "Contoh Aplikasi",
+    "description": "Ini adalah contoh deskripsi",
+    "keywords": "misalnya, kata kunci",
+    "version": {
+      "0.0.1": {
+        "name": "Bangunan pertama"
+      }
+    }
+  },
+  "responses": {
+    "failedCommand": "Kesalahan saat menjalankan perintah! Laporan telah diajukan dan dikirim ke pengembang."
+  }
+}

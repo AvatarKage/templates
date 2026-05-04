@@ -1,0 +1,15 @@
+{
+  "metadata": {
+    "tagline": "サンプルアプリ",
+    "description": "これは説明例です",
+    "keywords": "例、キーワード",
+    "version": {
+      "0.0.1": {
+        "name": "最初のビルド"
+      }
+    }
+  },
+  "responses": {
+    "failedCommand": "コマンド実行中にエラーが発生しました!レポートが作成され、開発者に送信されました。"
+  }
+}

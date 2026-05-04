@@ -1,0 +1,15 @@
+{
+  "metadata": {
+    "tagline": "示例应用程序",
+    "description": "这是一个示例描述",
+    "keywords": "例如，关键字",
+    "version": {
+      "0.0.1": {
+        "name": "第一次构建"
+      }
+    }
+  },
+  "responses": {
+    "failedCommand": "执行命令出错！已提交报告并发送给开发商。"
+  }
+}

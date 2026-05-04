@@ -1,0 +1,15 @@
+{
+  "metadata": {
+    "tagline": "Aplicación de ejemplo",
+    "description": "Esta es una descripción de ejemplo.",
+    "keywords": "ejemplo, palabra clave",
+    "version": {
+      "0.0.1": {
+        "name": "Primera construcción"
+      }
+    }
+  },
+  "responses": {
+    "failedCommand": "¡Error al ejecutar el comando! Se presentó un informe y se envió al desarrollador."
+  }
+}
