@@ -15,14 +15,35 @@
     "*.crt.example": "certificate",
     "*.key.example": "key",
     "package-lock.json": "lock",
-    "vite.ts": "vite"
+    "vite.ts": "vite",
+    "*.iss": "disc"
   },
   "material-icon-theme.folders.customClones": [
     {
-      "name": "kage-library",
-      "base": "core",
-      "color": "purple-600",
-      "folderNames": ["kage-library"]
+      "name": "discord",
+      "base": "robot",
+      "color": "#5865F2",
+      "folderNames": ["discord"]
+    }
+  ],
+  "material-icon-theme.files.customClones": [
+    {
+      "name": "commands",
+      "base": "console",
+      "color": "#03a9f4",
+      "fileExtensions": ["command.ts", "command.js"]
+    },
+    {
+      "name": "services",
+      "base": "controller",
+      "color": "#ffc107",
+      "fileExtensions": ["service.ts", "service.js"]
+    },
+    {
+      "name": "hooks",
+      "base": "controller",
+      "color": "#7e57c2",
+      "fileExtensions": ["hook.ts", "hook.js"]
     }
   ],
   "editor.tokenColorCustomizations": {

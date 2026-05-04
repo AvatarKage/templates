@@ -1,0 +1,33 @@
+{
+  "$schema": "https://schema.tauri.app/config/2",
+  "productName": "example",
+  "version": "0.0.1-prealpha-479c420",
+  "identifier": "com.example.app",
+  "build": {
+    "beforeDevCommand": "",
+    "devUrl": "https://dev.avatarka.ge",
+    "beforeBuildCommand": "",
+    "frontendDist": "../dist"
+  },
+  "app": {
+    "windows": [
+      {
+        "title": "My App",
+        "width": 1024,
+        "height": 768,
+        "url": "https://dev.avatarka.ge"
+      }
+    ],
+    "security": {
+      "csp": null
+    }
+  },
+  "bundle": {
+    "active": true,
+    "targets": "all",
+    "icon": [
+      "../public/branding/icon.ico"
+    ],
+    "resources": []
+  }
+}

@@ -26,8 +26,8 @@ const isProduction = false;
 // version name is editable in ./src/assets/locales/*.json
 const semver = "0.0.1"; // major.minor.patch
 const stage = "prealpha"; // prealpha | alpha | beta | rc | release
-const build = "479c420"; // DO NOT TOUCH, AUTO-GENERATED
-const buildDate = "2026-05-02T17:26:56.244Z"; // DO NOT TOUCH, AUTO-GENERATED
+const build = "789578f"; // DO NOT TOUCH, AUTO-GENERATED
+const buildDate = "2026-05-03T02:46:06.587Z"; // DO NOT TOUCH, AUTO-GENERATED
 
 /* 
 ————————————————————————————————————————————————————————————————
@@ -57,19 +57,19 @@ export const config = {
             status: false,
             api: false,
             cdn: false,
-            support: false,
+            support: false
         }
     },
 
     // Displays the maintenance landing
     maintenance: {
-        isEnabled: false,
+        isEnabled: false
         // reason is editable in ./src/assets/locales/*.json
     },
 
     theme: {
         primary: "#080808",
-        accent: "#7b22fd",
+        accent: "#7b22fd"
     },
 
     metadata: {
@@ -81,7 +81,7 @@ export const config = {
         theme: "system", // dark | light | system
         locale: "en",
         urls: [
-            "https://example.com"
+            "https://avatarka.ge"
         ],
 
         version: {
@@ -111,8 +111,8 @@ export const config = {
         },
 
         contact: {
-            support: "support@example.com",
-            legal: "legal@example.com"
+            support: "support@avatarka.ge",
+            legal: "legal@avatarka.ge"
         }
     },
 
@@ -120,8 +120,8 @@ export const config = {
     crawler: {
         name: "Example",
         version: "1.0",
-        website: "https://example.com",
-        contact: "admin@example.com"
+        website: "https://avatarka.ge",
+        contact: "admin@avatarka.ge"
     },
 
     // The maximum memory before the server restarts (###M/G)
@@ -159,11 +159,11 @@ export const config = {
 
     // Domains assigned to each server
     domains: {
-        main: isProduction ? "prod.example.com" : "dev.example.com",
-        status: isProduction ? "status.prod.example.com" : "status.dev.example.com",
-        api: isProduction ? "api.prod.example.com" : "api.dev.example.com",
-        cdn: isProduction ? "cdn.prod.example.com" : "cdn.dev.example.com",
-        support: isProduction ? "support.prod.example.com" : "support.dev.example.com"
+        main: isProduction ? "prod.avatarka.ge" : "dev.avatarka.ge",
+        status: isProduction ? "status.prod.avatarka.ge" : "status.dev.avatarka.ge",
+        api: isProduction ? "api.prod.avatarka.ge" : "api.dev.avatarka.ge",
+        cdn: isProduction ? "cdn.prod.avatarka.ge" : "cdn.dev.avatarka.ge",
+        support: isProduction ? "support.prod.avatarka.ge" : "support.dev.avatarka.ge"
     },
 
     // Dynamic generation (snowflake, etc.)

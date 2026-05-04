@@ -7,7 +7,7 @@
   "theme_color": "#7b22fd",
   "icons": [
     {
-      "src": "https://cdn.dev.example.com/branding/icon.svg",
+      "src": "https://cdn.dev.avatarka.ge/branding/icon.svg",
       "sizes": "256x256",
       "type": "image/png"
     }

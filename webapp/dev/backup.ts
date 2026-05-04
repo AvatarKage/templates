@@ -8,9 +8,11 @@ const outDir = path.join("dev", "backups", timestamp);
 const ignore = [
     "**/node_modules/**",
     "**/dist/**",
+    "**/release/**",
     "**/logs/**",
     "**/dev/backups/**",
     "**/backups/**",
+    "**/target/**",
     "package-lock.json"
 ];
 

@@ -1,6 +1,6 @@
 {
   "name": "my-app",
-  "version": "0.0.1-prealpha-479c420",
+  "version": "0.0.1-prealpha-789578f",
   "description": "This is an example description",
   "keywords": [
     "example",
@@ -15,7 +15,7 @@
     "stop": "pm2 stop all && pm2 kill",
     "sandbox": "tsx sandbox/%npm_config_name%.test.ts",
     "backup": "tsx dev/backup.ts",
-    "update": "npm update",
+    "update": "npm update && cd src-tauri && cargo update && cd ../",
     "build": "tsx dev/node/buildApp.mts",
     "clean": "rimraf dist && rimraf logs",
     "sync": "tsx dev/syncConfig.ts",
@@ -28,11 +28,16 @@
     "copy:ecosystem": "cpx ecosystem.config.cjs dist",
     "publish:npm": "cd packages/node && npm publish && cd ../../",
     "build:npm": "cd packages/node && tsx ../../dev/node/buildNodePackage.mts && cd ../../",
+    "dev:app": "tauri dev",
+    "build:app:windows": "tauri build --target x86_64-pc-windows-msvc --no-bundle",
+    "package:app:windows": "cmd /c \"\"C:\\Program Files (x86)\\Inno Setup 6\\ISCC.exe\" inno.iss\"",
     "init": "npm install && npm install -g pm2 && shx mv .env.example .env && shx mv ssl/dev.crt.example ssl/dev.crt && shx mv ssl/dev.key.example ssl/dev.key && shx mv ssl/prod.crt.example ssl/prod.crt && shx mv ssl/prod.key.example ssl/prod.key && rimraf --glob \"**/DELETE_ME\" && npm run update"
   },
   "dependencies": {
     "@sapphire/stopwatch": "^1.5.4",
     "@tailwindcss/vite": "^4.2.4",
+    "@tauri-apps/api": "^2.10.1",
+    "@tauri-apps/plugin-opener": "^2",
     "axios": "^1.15.0",
     "better-sqlite3": "^12.8.0",
     "chalk": "^5.6.2",
@@ -68,6 +73,7 @@
   },
   "devDependencies": {
     "@eslint/js": "^9.39.4",
+    "@tauri-apps/cli": "^2",
     "@types/better-sqlite3": "^7.6.13",
     "@types/cli-progress": "^3.11.6",
     "@types/cookie-parser": "^1.4.10",
@@ -79,7 +85,6 @@
     "@types/node": "^25.5.2",
     "@types/react": "^19.2.14",
     "@types/react-dom": "^19.2.3",
-    "@types/voucher-code-generator": "^1.1.3",
     "@types/ws": "^8.18.1",
     "@vitejs/plugin-react": "^6.0.1",
     "cli-progress": "^3.12.0",

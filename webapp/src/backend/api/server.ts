@@ -52,7 +52,7 @@ export const snowflake = new Snowflake(config.generation.epoch);
 export const wc = new WebClient({
     crawler: config.crawler,
     database: db.metadata,
-    
+    useSecureSSL: config.isProduction
 });
 
 /* 
