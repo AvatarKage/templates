@@ -29,8 +29,8 @@ const isProduction = false;
 // version name is editable in ./src/assets/locales/*.json
 const semver = "0.0.1"; // major.minor.patch
 const stage = "prealpha"; // prealpha | alpha | beta | rc | release
-const build = "5f67b68"; // DO NOT TOUCH, AUTO-GENERATED
-const buildDate = "2026-05-05T00:47:50.358Z"; // DO NOT TOUCH, AUTO-GENERATED
+const build = "1ede31f"; // DO NOT TOUCH, AUTO-GENERATED
+const buildDate = "2026-05-05T06:13:50.999Z"; // DO NOT TOUCH, AUTO-GENERATED
 
 /* 
 ————————————————————————————————————————————————————————————————

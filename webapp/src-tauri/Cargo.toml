@@ -1,5 +1,5 @@
 [package]
-name = "My App"
+name = "my-app"
 version = "0.0.1-prealpha-5f67b68"
 description = "This is an example description"
 authors = ["Example, LLC."]
