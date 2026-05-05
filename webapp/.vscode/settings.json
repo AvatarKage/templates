@@ -11,7 +11,8 @@
   "material-icon-theme.files.associations": {
     "*.config.ts": "settings",
     "*.config.js": "settings",
-    "*.ecosystem.config.cjs": "pm2-ecosystem",
+    "ecosystem.config.prod.cjs": "pm2-ecosystem",
+    "ecosystem.config.dev.cjs": "pm2-ecosystem",
     "*.crt.example": "certificate",
     "*.key.example": "key",
     "package-lock.json": "lock",

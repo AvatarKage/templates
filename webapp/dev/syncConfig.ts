@@ -126,7 +126,7 @@ fs.writeFileSync(nodePackagePath, JSON.stringify(nodePackageJSON, null, 2), "utf
 
 /* 
 ————————————————————————————————————————————————————————————————
-*.ecosystem.config.cjs
+ecosystem.config.cjs
 ———————————————————————————————————————————————————————————————— 
 */
 
@@ -181,8 +181,8 @@ for (const [key, value] of Object.entries(memoryMap)) {
     devValues[key] = value.dev;
 }
 
-const prodPath = path.join(process.cwd(), "ecosystem.config.cjs");
-const devPath = path.join(process.cwd(), "dev.ecosystem.config.cjs");
+const prodPath = path.join(process.cwd(), "ecosystem.config.prod.cjs");
+const devPath = path.join(process.cwd(), "ecosystem.config.dev.cjs");
 
 updateEcosystem(prodPath, prodValues);
 updateEcosystem(devPath, devValues);
