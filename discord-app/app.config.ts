@@ -59,10 +59,10 @@ export const config = {
 
     client: {
         presence: {
-            status: "dnd", // online | idle | dnd | invisible
+            status: "online", // online | idle | dnd | invisible
             activity: {
-                type: "Watching", // Playing | Streaming | Listening | Watching | Competing
-                text: "Watching over AvatarKage",
+                type: "Playing", // Playing | Streaming | Listening | Watching | Competing
+                text: "Example activity",
             }
         },
         guild: {
