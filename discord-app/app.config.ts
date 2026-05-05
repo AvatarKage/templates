@@ -58,7 +58,8 @@ export const config = {
     },
 
     client: {
-        status: "Example status",
+        status: "Playing",
+        activity: "Example activity",
         guild: {
             id: "00000000000000000"
         },
