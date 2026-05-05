@@ -97,7 +97,7 @@ export const config = {
             buildDate
         },
 
-        // Relative to the ./src/public folder
+        // Relative to the ./public folder
         assets: {
             logo: "/branding/logo.svg",
             icon: "/branding/icon.svg",

@@ -18,7 +18,7 @@ QUICK CONFIG
 // Disables unsafe SSL and dev client
 const isProduction = false;
 
-// version name is editable in ./src/assets/locales/*.json
+// version name is editable in ./assets/locales/*.json
 const semver = "0.0.1"; // major.minor.patch
 const stage = "prealpha"; // prealpha | alpha | beta | rc | release
 const build = "789578f"; // DO NOT TOUCH, AUTO-GENERATED
@@ -77,9 +77,9 @@ export const config = {
     metadata: {
         id: "com.example.project",
         name: "My App",
-        // tagline is editable in ./src/assets/locales/*.json
-        // description is editable in ./src/assets/locales/*.json
-        // keywords are editable in ./src/assets/locales/*.json
+        // tagline is editable in ./assets/locales/*.json
+        // description is editable in ./assets/locales/*.json
+        // keywords are editable in ./assets/locales/*.json
         theme: "system", // dark | light | system
         locale: "en",
         urls: [
@@ -96,7 +96,7 @@ export const config = {
             buildDate
         },
 
-        // Relative to the ./src/assets folder
+        // Relative to the ./assets folder
         assets: {
             logo: "/branding/logo.svg",
             icon: "/branding/icon.svg",
