@@ -173,7 +173,13 @@ export const config = {
     // Third-party applications
     integrations: {
         discord: {
-            status: "Example status",
+            presence: {
+                status: "dnd", // online | idle | dnd | invisible
+                activity: {
+                    type: "Watching", // Playing | Streaming | Listening | Watching | Competing
+                    text: "Watching over AvatarKage",
+                }
+            },
             module: {
                 utilities: true
             },

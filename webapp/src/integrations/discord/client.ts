@@ -59,11 +59,16 @@ discord.once(Events.ClientReady, async (client) => {
     await registerSlashCommands();
     registerMessageCreate();
 
-    // Update status
-    client.user.setActivity(
-        config.isProduction ? config.integrations.discord.status : config.metadata.version.full, 
-        { type: ActivityType.Playing }
-    );
+    // Update presence
+    client.user.setPresence({
+        status: config.integrations.discord.presence.status,
+        activities: [
+            {
+                name: config.integrations.discord.presence.activity.text,
+                type: ActivityType[config.integrations.discord.presence.activity.type],
+            }
+        ]
+    });
 });
 
 discord.login(getEnv(config.isProduction ? "INTEGRATION_DISCORD_BOT_TOKEN" : "INTEGRATION_DISCORD_DEV_BOT_TOKEN"));

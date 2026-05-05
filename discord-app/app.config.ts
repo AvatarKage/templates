@@ -58,8 +58,13 @@ export const config = {
     },
 
     client: {
-        status: "Playing",
-        activity: "Example activity",
+        presence: {
+            status: "dnd", // online | idle | dnd | invisible
+            activity: {
+                type: "Watching", // Playing | Streaming | Listening | Watching | Competing
+                text: "Watching over AvatarKage",
+            }
+        },
         guild: {
             id: "00000000000000000"
         },
