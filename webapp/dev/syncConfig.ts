@@ -53,6 +53,11 @@ if (!licenseCode) throw new Error("app.config.js is missing metadata.legal.licen
 if (!mainDomain) throw new Error("app.config.js is missing domains.main");
 if (!cdnDomain) throw new Error("app.config.js is missing domains.cdn");
 
+const formattedName = name
+    .toLowerCase()
+    .replace(/\s+/g, "-")
+    .replace(/[^a-z0-9-]/g, "");
+
 let hash;
 try {
     hash = execSync("git rev-parse --short HEAD").toString().trim();
@@ -91,11 +96,7 @@ const packagePath = path.join(config.folders.root, "package.json");
 const packageJSON = JSON.parse(fs.readFileSync(packagePath, "utf8"));
 const headerText = `This file is part of ${name}. ${licenseText}`;
 
-packageJSON.name = name
-    .toLowerCase()
-    .replace(/\s+/g, "-")
-    .replace(/[^a-z0-9-]/g, "");
-    
+packageJSON.name = formattedName
 packageJSON.version = fullVersion;
 packageJSON.description = i18n.t("metadata.description");
 packageJSON.keywords = keywords;
@@ -114,11 +115,7 @@ packages/node/package.json
 const nodePackagePath = path.join(config.folders.root, "packages", "node", "package.json");
 const nodePackageJSON = JSON.parse(fs.readFileSync(nodePackagePath, "utf8"));
 
-nodePackageJSON.name = name
-    .toLowerCase()
-    .replace(/\s+/g, "-")
-    .replace(/[^a-z0-9-]/g, "");
-    
+nodePackageJSON.name = formattedName
 nodePackageJSON.version = fullVersion;
 nodePackageJSON.description = i18n.t("metadata.description");
 nodePackageJSON.keywords = keywords;
@@ -216,7 +213,7 @@ tauri.conf.json
 const tauriConfigPath = path.join(config.folders.root, "src-tauri", "tauri.conf.json");
 const tauriConfigJSON = JSON.parse(fs.readFileSync(tauriConfigPath, "utf8"));
 
-tauriConfigJSON.productName = name.toLowerCase().replace(" ", "-");
+tauriConfigJSON.productName = formattedName;
 tauriConfigJSON.version = fullVersion;
 tauriConfigJSON.identifier = id;
 tauriConfigJSON.app.windows[0].title = name;
@@ -234,7 +231,7 @@ let cargoTomlContent = fs.readFileSync(cargoTomlPath, "utf8");
 
 cargoTomlContent = cargoTomlContent.replace(
   /^name\s*=\s*".*"/m,
-  `name = "${name}"`
+  `name = "${formattedName}"`
 );
 
 cargoTomlContent = cargoTomlContent.replace(
@@ -262,8 +259,6 @@ inno.iss
 
 const innoPath = path.join(config.folders.root, "inno.iss");
 let innoContent = fs.readFileSync(innoPath, "utf8");
-
-const exeFileName = name.toLowerCase().replace(" ", "-");
 
 innoContent = replaceLine(innoContent, "AppId", id);
 innoContent = replaceLine(innoContent, "AppName", name);
@@ -303,17 +298,17 @@ innoContent = innoContent.replace(
 
 innoContent = innoContent.replace(
     /Filename: "\{app\\\}.*?\.exe"/g,
-    `Filename: "{app}\\${exeFileName}.exe"`
+    `Filename: "{app}\\${formattedName}.exe"`
 );
 
 innoContent = innoContent.replace(
     /^Source: ".*?\.exe".*$/m,
-    `Source: "src-tauri\\target\\x86_64-pc-windows-msvc\\release\\${exeFileName}.exe"; DestDir: "{app}"; Flags: ignoreversion`
+    `Source: "src-tauri\\target\\x86_64-pc-windows-msvc\\release\\${formattedName}.exe"; DestDir: "{app}"; Flags: ignoreversion`
 );
 
 innoContent = innoContent.replace(
     /Filename:\s*"\{app\\?\}.*?\.exe"/g,
-    `Filename: "{app}\\${exeFileName}.exe"`
+    `Filename: "{app}\\${formattedName}.exe"`
 );
 
 fs.writeFileSync(innoPath, innoContent, "utf8");
