@@ -10,8 +10,8 @@ import {
 } from "kage-library";
 
 import { config } from "./app.config.js";
-import getEnv from "./src/backend/_common/helpers/getEnv.js";
-import shutdownServer from "./src/backend/_common/helpers/shutdownServer.js";
+import getEnv from "./src/_common/helpers/getEnv.js";
+import terminateApp from "./src/_common/helpers/terminateApp.js";
 
 const log = new Logger({
     path: "/logs", 
@@ -141,8 +141,8 @@ local.listen(port, () => {
     log.proxy.info(`Proxy online at https://localhost:${port}`);
 });
 
-process.once("SIGTERM", () => shutdownServer(log)); // Host
-process.once("SIGINT", () => shutdownServer(log)); // Ctrl+C
+process.once("SIGTERM", () => terminateApp(log)); // Host
+process.once("SIGINT", () => terminateApp(log)); // Ctrl+C
 
 /* 
 ————————————————————————————————————————————————————————————————

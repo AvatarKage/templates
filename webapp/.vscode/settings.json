@@ -15,7 +15,8 @@
     "*.crt.example": "certificate",
     "*.key.example": "key",
     "package-lock.json": "lock",
-    "vite.ts": "vite",
+    "vite.config.web.ts": "vite",
+    "vite.config.app.ts": "vite",
     "*.iss": "disc"
   },
   "material-icon-theme.folders.customClones": [

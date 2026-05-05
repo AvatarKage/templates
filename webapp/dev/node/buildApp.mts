@@ -17,7 +17,7 @@ const steps: Step[] = [
     { name: "Syncing config...", cmd: "npm", args: ["run", "sync"] },
     { name: "Translating locales...", cmd: "npm", args: ["run", "translate"] },
     { name: "Compiling Typescript...", cmd: "tsc" },
-    { name: "Building frontend...", cmd: "vite", args: ["build"] },
+    { name: "Building frontend...", cmd: "vite", args: ["build", "--config", "vite.config.web.ts"] },
     { name: "Minifying code...", cmd: "npm", args: ["run", "minify"] },
 
     ...[

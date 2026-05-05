@@ -15,7 +15,8 @@
   "responses": {
     "emptyFields": "Please fill in all the required fields.",
     "noAccess": "You do not have permission to access this content.",
-    "badGateway": "Bad gateway. Try refreshing!"
+    "badGateway": "Bad gateway. Try refreshing!",
+    "failedCommand": "Error executing command! A report was filed and sent to the developer."
   },
   "pages": {
     "languages": "Languages",

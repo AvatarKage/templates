@@ -3,7 +3,7 @@ import dotenv from "dotenv";
 import path from "path";
 import fs from "fs";
 
-import { config } from "../../../../app.config.js";
+import { config } from "../../../app.config.js";
 
 dotenv.config();
 

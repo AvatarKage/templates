@@ -16,8 +16,14 @@ const i18n = await I18nService.load(
     }
 );
 
+function replaceLine(file: string, key: string, value: string) {
+    const regex = new RegExp(`^(${key}\\s*=\\s*).*$`, "m");
+    return file.replace(regex, `$1${value}`);
+}
+
 const primary = config.theme.primary;
 const accent = config.theme.accent;
+const id = config.metadata.id;
 const name = config.metadata.name;
 const semver = config.metadata.version.semver;
 const stage = config.metadata.version.stage;
@@ -26,6 +32,7 @@ const icon = config.metadata.assets.icon;
 const owner = config.metadata.legal.owner;
 const licenseText = config.metadata.legal.license.text;
 const licenseCode = config.metadata.legal.license.code;
+const mainDomain = config.domains.main;
 const cdnDomain = config.domains.cdn;
 const keywords = (i18n.t("metadata.keywords") || "")
   .split(",")
@@ -34,6 +41,7 @@ const keywords = (i18n.t("metadata.keywords") || "")
 
 if (!primary) throw new Error("app.config.js is missing theme.primary");
 if (!accent) throw new Error("app.config.js is missing theme.accent");
+if (!id) throw new Error("app.config.js is missing metadata.!id");
 if (!name) throw new Error("app.config.js is missing metadata.name");
 if (!semver) throw new Error("app.config.js is missing metadata.version.semver");
 if (!stage) throw new Error("app.config.js is missing metadata.version.stage");
@@ -42,6 +50,7 @@ if (!icon) throw new Error("app.config.js is missing metadata.assets.icon");
 if (!owner) throw new Error("app.config.js is missing metadata.legal.owner");
 if (!licenseText) throw new Error("app.config.js is missing metadata.legal.license.text");
 if (!licenseCode) throw new Error("app.config.js is missing metadata.legal.license.code");
+if (!mainDomain) throw new Error("app.config.js is missing domains.main");
 if (!cdnDomain) throw new Error("app.config.js is missing domains.cdn");
 
 let hash;
@@ -197,3 +206,114 @@ manifestJSON.theme_color = accent;
 manifestJSON.icons[0].src = `https://${cdnDomain}${icon}`;
 
 fs.writeFileSync(manifestPath, JSON.stringify(manifestJSON, null, 2), "utf8");
+
+/* 
+————————————————————————————————————————————————————————————————
+tauri.conf.json
+———————————————————————————————————————————————————————————————— 
+*/
+
+const tauriConfigPath = path.join(config.folders.root, "src-tauri", "tauri.conf.json");
+const tauriConfigJSON = JSON.parse(fs.readFileSync(tauriConfigPath, "utf8"));
+
+tauriConfigJSON.productName = name.toLowerCase().replace(" ", "-");
+tauriConfigJSON.version = fullVersion;
+tauriConfigJSON.identifier = id;
+tauriConfigJSON.app.windows[0].title = name;
+
+fs.writeFileSync(tauriConfigPath, JSON.stringify(tauriConfigJSON, null, 2), "utf8");
+
+/* 
+————————————————————————————————————————————————————————————————
+Cargo.toml
+———————————————————————————————————————————————————————————————— 
+*/
+
+const cargoTomlPath = path.join(config.folders.root, "src-tauri", "Cargo.toml");
+let cargoTomlContent = fs.readFileSync(cargoTomlPath, "utf8");
+
+cargoTomlContent = cargoTomlContent.replace(
+  /^name\s*=\s*".*"/m,
+  `name = "${name}"`
+);
+
+cargoTomlContent = cargoTomlContent.replace(
+  /^version\s*=\s*".*"/m,
+  `version = "${fullVersion}"`
+);
+
+cargoTomlContent = cargoTomlContent.replace(
+  /^description\s*=\s*".*"/m,
+  `description = "${i18n.t("metadata.description")}"`
+);
+
+cargoTomlContent = cargoTomlContent.replace(
+  /^authors\s*=\s*\[.*\]/m,
+  `authors = ["${owner}"]`
+);
+
+fs.writeFileSync(cargoTomlPath, cargoTomlContent, "utf8");
+
+/* 
+————————————————————————————————————————————————————————————————
+inno.iss
+———————————————————————————————————————————————————————————————— 
+*/
+
+const innoPath = path.join(config.folders.root, "inno.iss");
+let innoContent = fs.readFileSync(innoPath, "utf8");
+
+const exeFileName = name.toLowerCase().replace(" ", "-");
+
+innoContent = replaceLine(innoContent, "AppId", id);
+innoContent = replaceLine(innoContent, "AppName", name);
+innoContent = replaceLine(innoContent, "AppVersion", semver);
+innoContent = replaceLine(innoContent, "AppPublisher", owner);
+innoContent = replaceLine(innoContent, "AppPublisherURL", `https://${mainDomain}`);
+innoContent = replaceLine(innoContent, "AppCopyright", owner);
+
+innoContent = replaceLine(innoContent, "DefaultGroupName", name);
+innoContent = replaceLine(innoContent, "VersionInfoProductName", name);
+innoContent = replaceLine(innoContent, "VersionInfoVersion", semver);
+innoContent = replaceLine(innoContent, "VersionInfoTextVersion", fullVersion);
+innoContent = replaceLine(innoContent, "VersionInfoProductVersion", semver);
+innoContent = replaceLine(innoContent, "VersionInfoCompany", owner);
+innoContent = replaceLine(innoContent, "VersionInfoDescription", i18n.t("metadata.description"));
+innoContent = replaceLine(innoContent, "VersionInfoCopyright", owner);
+
+innoContent = innoContent.replace(
+    /^OutputBaseFilename=.*$/m,
+    `OutputBaseFilename=${name.replace(" ", "_")}_${fullVersion}_Installer_Windows`
+);
+
+innoContent = innoContent.replace(
+    /^SetupIconFile=.*$/m,
+    `SetupIconFile=public${icon}`
+);
+
+innoContent = innoContent.replace(
+    /Name:\s*"\{group\\\}.*?"/g,
+    `Name: "{group\\}${name}"`
+);
+
+innoContent = innoContent.replace(
+    /Name: "\{commondesktop\\\}.*?"/g,
+    `Name: "{commondesktop\\}${name}"`
+);
+
+innoContent = innoContent.replace(
+    /Filename: "\{app\\\}.*?\.exe"/g,
+    `Filename: "{app}\\${exeFileName}.exe"`
+);
+
+innoContent = innoContent.replace(
+    /^Source: ".*?\.exe".*$/m,
+    `Source: "src-tauri\\target\\x86_64-pc-windows-msvc\\release\\${exeFileName}.exe"; DestDir: "{app}"; Flags: ignoreversion`
+);
+
+innoContent = innoContent.replace(
+    /Filename:\s*"\{app\\?\}.*?\.exe"/g,
+    `Filename: "{app}\\${exeFileName}.exe"`
+);
+
+fs.writeFileSync(innoPath, innoContent, "utf8");

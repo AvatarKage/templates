@@ -15,7 +15,8 @@
   "responses": {
     "emptyFields": "Silakan isi semua bidang yang diperlukan.",
     "noAccess": "Anda tidak memiliki izin untuk mengakses konten ini.",
-    "badGateway": "Gerbang yang buruk. Cobalah menyegarkan!"
+    "badGateway": "Gerbang yang buruk. Cobalah menyegarkan!",
+    "failedCommand": "Kesalahan saat menjalankan perintah! Laporan telah diajukan dan dikirim ke pengembang."
   },
   "pages": {
     "404": {

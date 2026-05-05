@@ -10,7 +10,8 @@ module.exports = {
       watch: [
         "./app.config.ts",
         "./proxy.ts",
-        "./src/backend/_common"
+        "./src/backend/_common",
+        "./src/_common"
       ],
       ignore_watch: [
         "**/*.tsx"
@@ -31,7 +32,8 @@ module.exports = {
       watch: [
         "./app.config.ts",
         "./src/backend/main",
-        "./src/backend/_common"
+        "./src/backend/_common",
+        "./src/_common"
       ],
       ignore_watch: [
         "**/*.tsx"
@@ -51,7 +53,8 @@ module.exports = {
       watch: [
         "./app.config.ts",
         "./src/backend/status",
-        "./src/backend/_common"
+        "./src/backend/_common",
+        "./src/_common"
       ],
       ignore_watch: [
         "**/*.tsx"
@@ -71,7 +74,8 @@ module.exports = {
       watch: [
         "./app.config.ts",
         "./src/backend/api",
-        "./src/backend/_common"
+        "./src/backend/_common",
+        "./src/_common"
       ],
       ignore_watch: [
         "**/*.tsx"
@@ -91,7 +95,8 @@ module.exports = {
       watch: [
         "./app.config.ts",
         "./src/backend/cdn",
-        "./src/backend/_common"
+        "./src/backend/_common",
+        "./src/_common"
       ],
       ignore_watch: [
         "**/*.tsx"
@@ -112,7 +117,29 @@ module.exports = {
       watch: [
         "./app.config.ts",
         "./src/backend/support",
-        "./src/backend/_common"
+        "./src/backend/_common",
+        "./src/_common"
+      ],
+      ignore_watch: [
+        "**/*.tsx"
+      ],
+      env: {
+        NODE_OPTIONS: "--no-warnings",
+        FORCE_COLOR: "1"
+      }
+    },
+    {
+      name: "discord_client",
+      script: "./src/integrations/discord/client.ts",
+      interpreter: "node",
+      node_args: "--import tsx",
+      autorestart: true,
+      max_memory_restart: "1G",
+      watch: ["./src"],
+      watch: [
+        "./app.config.ts",
+        "./src/integrations/discord",
+        "./src/_common"
       ],
       ignore_watch: [
         "**/*.tsx"

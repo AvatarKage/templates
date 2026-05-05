@@ -14,6 +14,9 @@ DO NOT EDIT THE FOLLOWING FILES:
 - ./vite.config.ts
 - ./src/backend/vite.ts
 - ./public/manifest.json
+- ./src-tauri/Cargo.toml
+- ./src-tauri/tauri.conf.json
+- ./inno.iss
 
 ———————————————————————————————————————————————————————————————— 
 QUICK CONFIG
@@ -26,8 +29,8 @@ const isProduction = false;
 // version name is editable in ./src/assets/locales/*.json
 const semver = "0.0.1"; // major.minor.patch
 const stage = "prealpha"; // prealpha | alpha | beta | rc | release
-const build = "789578f"; // DO NOT TOUCH, AUTO-GENERATED
-const buildDate = "2026-05-03T02:46:06.587Z"; // DO NOT TOUCH, AUTO-GENERATED
+const build = "5f67b68"; // DO NOT TOUCH, AUTO-GENERATED
+const buildDate = "2026-05-05T00:47:50.358Z"; // DO NOT TOUCH, AUTO-GENERATED
 
 /* 
 ————————————————————————————————————————————————————————————————
@@ -81,7 +84,7 @@ export const config = {
         theme: "system", // dark | light | system
         locale: "en",
         urls: [
-            "https://avatarka.ge"
+            "https://example.com"
         ],
 
         version: {
@@ -111,8 +114,8 @@ export const config = {
         },
 
         contact: {
-            support: "support@avatarka.ge",
-            legal: "legal@avatarka.ge"
+            support: "support@example.com",
+            legal: "legal@example.com"
         }
     },
 
@@ -120,8 +123,8 @@ export const config = {
     crawler: {
         name: "Example",
         version: "1.0",
-        website: "https://avatarka.ge",
-        contact: "admin@avatarka.ge"
+        website: "https://example.com",
+        contact: "admin@example.com"
     },
 
     // The maximum memory before the server restarts (###M/G)
@@ -131,7 +134,8 @@ export const config = {
         status: isProduction ? "100M" : "1G",
         api: isProduction ? "300M" : "1G",
         cdn: isProduction ? "150M" : "1G",
-        support: isProduction ? "350M" : "1G"
+        support: isProduction ? "350M" : "1G",
+        discord_client: isProduction ? "150M" : "1G"
     },
 
     // Port numbers on localhost (default: 1052* and 3955*)
@@ -159,11 +163,28 @@ export const config = {
 
     // Domains assigned to each server
     domains: {
-        main: isProduction ? "prod.avatarka.ge" : "dev.avatarka.ge",
-        status: isProduction ? "status.prod.avatarka.ge" : "status.dev.avatarka.ge",
-        api: isProduction ? "api.prod.avatarka.ge" : "api.dev.avatarka.ge",
-        cdn: isProduction ? "cdn.prod.avatarka.ge" : "cdn.dev.avatarka.ge",
-        support: isProduction ? "support.prod.avatarka.ge" : "support.dev.avatarka.ge"
+        main: isProduction ? "prod.example.com" : "dev.example.com",
+        status: isProduction ? "status.prod.example.com" : "status.dev.example.com",
+        api: isProduction ? "api.prod.example.com" : "api.dev.example.com",
+        cdn: isProduction ? "cdn.prod.example.com" : "cdn.dev.example.com",
+        support: isProduction ? "support.prod.example.com" : "support.dev.example.com"
+    },
+
+    // Third-party applications
+    integrations: {
+        discord: {
+            status: "Example status",
+            module: {
+                utilities: true
+            },
+            guild: {
+                id: "00000000000000000"
+            },
+            channels: {
+                commands: "00000000000000000",
+                commandsDev: "00000000000000000"
+            }
+        }
     },
 
     // Dynamic generation (snowflake, etc.)
@@ -191,7 +212,8 @@ export const config = {
         data: resolve(dir, "data"),
         backups: resolve(dir, "backups"),
         sql: resolve(dir, "src", "backend", "api", "sql"),
-        public: resolve(dir, "public")
+        public: resolve(dir, "public"),
+        commands: resolve(dir, "src", "integrations", "discord", "commands")
     }
 } as const;
 

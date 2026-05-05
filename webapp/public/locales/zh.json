@@ -15,7 +15,8 @@
   "responses": {
     "emptyFields": "请填写所有必填字段。",
     "noAccess": "您无权访问此内容。",
-    "badGateway": "坏网关。尝试清爽一下！"
+    "badGateway": "坏网关。尝试清爽一下！",
+    "failedCommand": "执行命令出错！已提交报告并发送给开发商。"
   },
   "pages": {
     "404": {

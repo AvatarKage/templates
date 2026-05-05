@@ -10,12 +10,12 @@
  *
  * @example
  * process.on("SIGINT", async () => {
- *   await shutdownServer(log, db);
+ *   await terminateApp(log, db);
  * });
  */
 
 /* eslint-disable */
-export default async function shutdownServer(
+export default async function terminateApp(
     log: any,
     db?: any
 ) {

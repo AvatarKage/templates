@@ -12,8 +12,8 @@ import {
 } from "kage-library";
 
 import { config } from '../../../app.config.js';
-import getEnv from '../_common/helpers/getEnv.js';
-import shutdownServer from "../_common/helpers/shutdownServer.js";
+import getEnv from '../../_common/helpers/getEnv.js';
+import terminateApp from "../../_common/helpers/terminateApp.js";
 import { corsMiddleware } from '../_common/middlewares/cors.middleware.js';
 import { maintenanceMiddleware } from '../_common/middlewares/maintenance.middleware.js';
 import userRoutes from './routes/user.routes.js';
@@ -89,8 +89,8 @@ server.listen(port, "0.0.0.0", () => {
     log.server.info(`Server online at https://localhost:${port}`);
 });
 
-process.once("SIGTERM", () => shutdownServer(log, db));
-process.once("SIGINT", () => shutdownServer(log, db));
+process.once("SIGTERM", () => terminateApp(log, db));
+process.once("SIGINT", () => terminateApp(log, db));
 
 /* 
 ————————————————————————————————————————————————————————————————

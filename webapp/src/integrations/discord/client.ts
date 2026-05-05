@@ -1,33 +1,17 @@
-import { Client, Events, GatewayIntentBits, ActivityType, Message } from "discord.js";
+import { Client, Events, GatewayIntentBits, ActivityType } from "discord.js";
 import cron from "node-cron";
 
 import { 
-    Database,
     Logger,
     Snowflake,
-    WebClient,
-    backupService
+    WebClient
 } from "kage-library";
 
-import { config } from "./app.config.js"
-import getEnv from "./src/helpers/getEnv.js"
-import terminateApp from "./src/helpers/terminateApp.js"
-import registerSlashCommands from "./src/hooks/registerSlashCommands.hook.js";
-import registerMessageCreate from "./src/hooks/registerMessageCreate.hook.js";
-
-/* 
-————————————————————————————————————————————————————————————————
-Connect databases
-———————————————————————————————————————————————————————————————— 
-*/
-
-export const db = {
-    metadata: new Database("data/databases/metadata.sqlite")
-};
-
-db.metadata.transaction((query) => {
-    if (!query("SELECT * FROM metadata LIMIT 1").success) { query(`${config.folders.sql}/metadata.sql`); };
-});
+import { config } from "../../../app.config.js"
+import getEnv from "../../_common/helpers/getEnv.js"
+import terminateApp from "../../_common/helpers/terminateApp.js";
+import registerSlashCommands from "./hooks/registerSlashCommands.hook.js";
+import registerMessageCreate from "./hooks/registerMessageCreate.hook.js";
 
 /* 
 ————————————————————————————————————————————————————————————————
@@ -46,7 +30,7 @@ export const discord = new Client({
 });
 
 export const log = new Logger({
-    path: "/logs",
+    path: "/logs/integrations",
     useNerdFonts: config.useNerdFonts,
     saveAllToFile: config.debug.logger.main
 });
@@ -54,7 +38,6 @@ export const log = new Logger({
 export const snowflake = new Snowflake(config.generation.epoch);
 export const wc = new WebClient({
     crawler: config.crawler,
-    database: db.metadata,
     useSecureSSL: config.isProduction
 });
 
@@ -78,15 +61,15 @@ discord.once(Events.ClientReady, async (client) => {
 
     // Update status
     client.user.setActivity(
-        config.isProduction ? config.client.status : config.metadata.version.full, 
+        config.isProduction ? config.integrations.discord.status : config.metadata.version.full, 
         { type: ActivityType.Playing }
     );
 });
 
-discord.login(getEnv(config.isProduction ? "DISCORD_BOT_TOKEN" : "DISCORD_DEV_BOT_TOKEN"));
+discord.login(getEnv(config.isProduction ? "INTEGRATION_DISCORD_BOT_TOKEN" : "INTEGRATION_DISCORD_DEV_BOT_TOKEN"));
 
-process.once("SIGTERM", () => terminateApp(log, db)); // Host
-process.once("SIGINT", () => terminateApp(log, db)); // Ctrl+C
+process.once("SIGTERM", () => terminateApp(log));
+process.once("SIGINT", () => terminateApp(log));
 
 /* 
 ————————————————————————————————————————————————————————————————
@@ -98,5 +81,4 @@ Scheduled events
 cron.schedule("0 0 * * *", () => {
     log.cron.info("Running daily tasks...");
     log.cleanLogs();
-    backupService(config.folders.data, config.folders.backups);
 });

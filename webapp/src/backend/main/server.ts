@@ -11,8 +11,8 @@ import {
 } from "kage-library";
 
 import { config } from "../../../app.config.js";
-import getEnv from "../_common/helpers/getEnv.js";
-import shutdownServer from "../_common/helpers/shutdownServer.js";
+import getEnv from "../../_common/helpers/getEnv.js";
+import terminateApp from "../../_common/helpers/terminateApp.js";
 import createViteServer from "../_common/helpers/createViteServer.js";
 import { corsMiddleware } from "../_common/middlewares/cors.middleware.js";
 import { maintenanceMiddleware } from "../_common/middlewares/maintenance.middleware.js";
@@ -83,8 +83,8 @@ server.listen(port, "0.0.0.0", () => {
     if (vite) log.server.info(`Vite online at wss://localhost:${vitePort}`);
 });
 
-process.once("SIGTERM", () => shutdownServer(log));
-process.once("SIGINT", () => shutdownServer(log));
+process.once("SIGTERM", () => terminateApp(log));
+process.once("SIGINT", () => terminateApp(log));
 
 /* 
 ————————————————————————————————————————————————————————————————

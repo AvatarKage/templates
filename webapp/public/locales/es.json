@@ -15,7 +15,8 @@
   "responses": {
     "emptyFields": "Por favor complete todos los campos requeridos.",
     "noAccess": "No tienes permiso para acceder a este contenido.",
-    "badGateway": "Mala puerta de entrada. ¡Intenta refrescarte!"
+    "badGateway": "Mala puerta de entrada. ¡Intenta refrescarte!",
+    "failedCommand": "¡Error al ejecutar el comando! Se presentó un informe y se envió al desarrollador."
   },
   "pages": {
     "404": {
