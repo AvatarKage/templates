@@ -28,7 +28,6 @@ module.exports = {
       node_args: "--import tsx",
       autorestart: true,
       max_memory_restart: "1G",
-      watch: ["./src"],
       watch: [
         "./app.config.ts",
         "./src/backend/main",
@@ -113,7 +112,6 @@ module.exports = {
       node_args: "--import tsx",
       autorestart: true,
       max_memory_restart: "1G",
-      watch: ["./src"],
       watch: [
         "./app.config.ts",
         "./src/backend/support",
@@ -135,7 +133,6 @@ module.exports = {
       node_args: "--import tsx",
       autorestart: true,
       max_memory_restart: "1G",
-      watch: ["./src"],
       watch: [
         "./app.config.ts",
         "./src/integrations/discord",
