@@ -44,9 +44,13 @@ if (!licenseCode) throw new Error("app.config.js is missing metadata.legal.licen
 
 let hash;
 try {
-    hash = execSync("git rev-parse --short HEAD").toString().trim();
+    hash = execSync("git rev-parse --short HEAD", {
+        stdio: ["ignore", "pipe", "ignore"]
+    })
+        .toString()
+        .trim();
 } catch {
-    hash = Math.random().toString(36).substring(2, 9);
+    hash = hash = Math.random().toString(36).substring(2, 9);
 }
 
 /* 
