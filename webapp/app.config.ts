@@ -7,8 +7,8 @@ file will be translated to all generation.translations.
 
 DO NOT EDIT THE FOLLOWING FILES:
 - ./package.json
-- ./ecosystem.config.prod.cjs
-- ./ecosystem.config.dev.cjs
+- ./prod.ecosystem.config.cjs
+- ./dev.ecosystem.config.cjs
 - ./eslint.config.js
 - ./tsconfig.json
 - ./vite.config.ts

@@ -185,8 +185,8 @@ for (const [key, value] of Object.entries(memoryMap)) {
     devValues[key] = value.dev;
 }
 
-const prodPath = path.join(process.cwd(), "ecosystem.config.prod.cjs");
-const devPath = path.join(process.cwd(), "ecosystem.config.dev.cjs");
+const prodPath = path.join(process.cwd(), "prod.ecosystem.config.cjs");
+const devPath = path.join(process.cwd(), "dev.ecosystem.config.cjs");
 
 updateEcosystem(prodPath, prodValues);
 updateEcosystem(devPath, devValues);
