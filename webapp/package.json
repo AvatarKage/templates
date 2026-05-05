@@ -10,7 +10,7 @@
   "license": "ARR",
   "type": "module",
   "scripts": {
-    "start": "pm2 start prod.ecosystem.config.cjs && pm2 monit",
+    "start": "pm2 start ecosystem.config.cjs && pm2 monit",
     "dev": "pm2 start dev.ecosystem.config.cjs && pm2 monit",
     "stop": "pm2 stop all && pm2 kill",
     "sandbox": "tsx sandbox/%npm_config_name%.test.ts",
@@ -25,7 +25,7 @@
     "copy:public": "cpx public/**/* dist/public",
     "copy:package": "cpx package.json dist",
     "copy:env": "cpx .env dist",
-    "copy:ecosystem": "cpx prod.ecosystem.config.cjs dist",
+    "copy:ecosystem": "cpx ecosystem.config.cjs dist",
     "publish:npm": "cd packages/node && npm publish && cd ../../",
     "build:npm": "cd packages/node && tsx ../../dev/node/buildNodePackage.mts && cd ../../",
     "dev:app": "tauri dev",
