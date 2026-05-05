@@ -78,7 +78,7 @@ discord.once(Events.ClientReady, async (client) => {
 
     // Update status
     client.user.setActivity(
-        config.isProduction ? config.client.status : config.metadata.version.full, 
+        config.isProduction ? config.client.activity : config.metadata.version.full, 
         { type: ActivityType[config.client.status] }
     );
 });
