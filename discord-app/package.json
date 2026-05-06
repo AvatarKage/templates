@@ -38,7 +38,7 @@
     "fast-glob": "^3.3.3",
     "fs": "^0.0.1-security",
     "fs-extra": "^11.3.4",
-    "kage-library": "^1.0.9",
+    "kage-library": "^1.0.15",
     "luxon": "^3.7.2",
     "node-cron": "^4.2.1",
     "node-fetch": "^3.3.2",
