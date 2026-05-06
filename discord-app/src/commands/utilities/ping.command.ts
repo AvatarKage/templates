@@ -49,7 +49,7 @@ function after(sw: Stopwatch) {
 }
 
 export default {
-    enabled: config.module.utilities,
+    enabled: config.modules.utilities,
 
     data: new SlashCommandBuilder()
         .setName("ping")

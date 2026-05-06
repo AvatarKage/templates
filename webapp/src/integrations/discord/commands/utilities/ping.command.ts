@@ -49,7 +49,7 @@ function after(sw: Stopwatch) {
 }
 
 export default {
-    enabled: config.integrations.discord.module.utilities,
+    enabled: config.integrations.discord.modules.utilities,
 
     data: new SlashCommandBuilder()
         .setName("ping")

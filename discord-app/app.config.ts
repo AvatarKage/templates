@@ -53,7 +53,7 @@ export const config = {
     },
 
     // Enable or disable modules
-    module: {
+    modules: {
         utilities: true
     },
 

@@ -180,7 +180,7 @@ export const config = {
                     text: "Example activity",
                 }
             },
-            module: {
+            modules: {
                 utilities: true
             },
             guild: {
