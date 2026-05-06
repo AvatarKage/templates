@@ -1,4 +1,5 @@
-import { Logger, WsClient } from "kage-library/client";
+import { Logger } from "kage-library/client";
+import WsClient from "./websocket.js";
 
 /* 
 ————————————————————————————————————————————————————————————————
@@ -11,7 +12,7 @@ export const log = new Logger({
 });
 
 // Create new websocket client
-window.ws = new WsClient(log, `wss://${window.config.domains.main}`);
+window.ws = new WsClient(`wss://${window.config.domains.main}`);
 
 // Tell the server client is loaded and ready
 window.ws.send({ status: "ready" });
