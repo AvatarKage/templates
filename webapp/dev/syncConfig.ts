@@ -1,4 +1,4 @@
-import { execSync } from "child_process";
+import { randomBytes } from "crypto";
 import path from "path";
 import fs from "fs";
 
@@ -58,17 +58,6 @@ const formattedName = name
     .replace(/\s+/g, "-")
     .replace(/[^a-z0-9-]/g, "");
 
-let hash;
-try {
-    hash = execSync("git rev-parse --short HEAD", {
-        stdio: ["ignore", "pipe", "ignore"]
-    })
-        .toString()
-        .trim();
-} catch {
-    hash = hash = Math.random().toString(36).substring(2, 9);
-}
-
 /* 
 ————————————————————————————————————————————————————————————————
 app.config.js
@@ -80,7 +69,7 @@ let rawConfig = fs.readFileSync(configPath, "utf8");
 
 rawConfig = rawConfig.replace(
     /const\s+build\s*=\s*".*?"/,
-    `const build = "${hash}"`
+    `const build = "build-${randomBytes(4).toString("hex").slice(0, 7)}"`
 );
 
 rawConfig = rawConfig.replace(

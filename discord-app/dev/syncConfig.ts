@@ -1,4 +1,4 @@
-import { execSync } from "child_process";
+import { randomBytes } from "crypto";
 import path from "path";
 import fs from "fs";
 
@@ -7,6 +7,7 @@ import {
 } from "kage-library";
 
 import { config } from "../app.config.js";
+
 
 const i18n = await I18nService.load(
     { 
@@ -42,17 +43,6 @@ if (!owner) throw new Error("app.config.js is missing metadata.legal.owner");
 if (!licenseText) throw new Error("app.config.js is missing metadata.legal.license.text");
 if (!licenseCode) throw new Error("app.config.js is missing metadata.legal.license.code");
 
-let hash;
-try {
-    hash = execSync("git rev-parse --short HEAD", {
-        stdio: ["ignore", "pipe", "ignore"]
-    })
-        .toString()
-        .trim();
-} catch {
-    hash = hash = Math.random().toString(36).substring(2, 9);
-}
-
 /* 
 ————————————————————————————————————————————————————————————————
 app.config.js
@@ -64,7 +54,7 @@ let rawConfig = fs.readFileSync(configPath, "utf8");
 
 rawConfig = rawConfig.replace(
     /const\s+build\s*=\s*".*?"/,
-    `const build = "${hash}"`
+    `const build = "build-${randomBytes(4).toString("hex").slice(0, 7)}"`
 );
 
 rawConfig = rawConfig.replace(
